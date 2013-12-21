@@ -79,78 +79,118 @@ class cnbhHoursWidget extends WP_Widget {
 		$showOpenStatus      = isset( $instance['show_open_status'] ) ? $instance['show_open_status'] : '1';
 		$highlightOpenPeriod = isset( $instance['highlight_open_period'] ) ? $instance['highlight_open_period'] : '1';
 
-		?>
+		cnHTML::text(
+			array(
+				'prefix' => '',
+				'class'  => 'widefat',
+				'id'     => $this->get_field_id('title'),
+				'name'   => $this->get_field_name('title'),
+				'label'  => __('Title:', 'connections_cnbh'),
+				'before' => '<p>',
+				'after'  => '</p>',
+				),
+			$title
+		);
 
-		<p>
-			<label for="<?php echo $this->get_field_id('title');?>"><?php _e('Title:', 'connections_cnbh') ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id('title');?>" name="<?php echo $this->get_field_name('title');?>" type="text" value="<?php echo $title?>" />
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('show_open_status'),
+				'name'    => $this->get_field_name('show_open_status'),
+				'label'   => __( 'Show the open status message above the operating hours.', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$showOpenStatus
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('header'); ?>" name="<?php echo $this->get_field_name('header'); ?>" type="checkbox" value="1" <?php checked( '1', $header ); ?> />
-			<label for="<?php echo $this->get_field_id('header'); ?>"><?php _e( 'Show Open/Close Header', 'connections_cnbh' ); ?></label>
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('header'),
+				'name'    => $this->get_field_name('header'),
+				'label'   => __( 'Show Open/Close Header', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$header
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('footer'); ?>" name="<?php echo $this->get_field_name('footer'); ?>" type="checkbox" value="1" <?php checked( '1', $footer ); ?> />
-			<label for="<?php echo $this->get_field_id('footer'); ?>"><?php _e( 'Show Open/Close Footer', 'connections_cnbh' ); ?></label>
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('footer'),
+				'name'    => $this->get_field_name('footer'),
+				'label'   => __( 'Show Open/Close Footer', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$footer
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('show_closed_day'); ?>" name="<?php echo $this->get_field_name('show_closed_day'); ?>" type="checkbox" value="1" <?php checked( '1', $showClosedDay ); ?> />
-			<label for="<?php echo $this->get_field_id('show_closed_day'); ?>"><?php _e( 'Show the days that are closed with a "Closed Today" message.', 'connections_cnbh' ); ?></label>
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('show_closed_day'),
+				'name'    => $this->get_field_name('show_closed_day'),
+				'label'   => __( 'Show the days that are closed with a "Closed Today" message.', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$showClosedDay
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('show_closed_period'); ?>" name="<?php echo $this->get_field_name('show_closed_period'); ?>" type="checkbox" value="1" <?php checked( '1', $showClosedPeriod ); ?> />
-			<label for="<?php echo $this->get_field_id('show_closed_period'); ?>"><?php _e( 'Show the periods within a day that are closed with a "Closed Period" message.', 'connections_cnbh' ); ?></label>
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('show_closed_period'),
+				'name'    => $this->get_field_name('show_closed_period'),
+				'label'   => __( 'Show the periods within a day that are closed with a "Closed Period" message.', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$showClosedPeriod
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('show_if_no_hours'); ?>" name="<?php echo $this->get_field_name('show_if_no_hours'); ?>" type="checkbox" value="1" <?php checked( '1', $show ); ?> />
-			<label for="<?php echo $this->get_field_id('show_if_no_hours'); ?>"><?php _e( 'Show the operating hours if there are no open days or periods in the week. All days will be shown with a "Closed Today" message only if the show "Closed Today" message option is enabled.', 'connections_cnbh' ); ?></label>
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('show_if_no_hours'),
+				'name'    => $this->get_field_name('show_if_no_hours'),
+				'label'   => __( 'Show the operating hours if there are no open days or periods in the week. All days will be shown with a "Closed Today" message only if the show "Closed Today" message option is enabled.', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$show
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('show_open_status'); ?>" name="<?php echo $this->get_field_name('show_open_status'); ?>" type="checkbox" value="1" <?php checked( '1', $showOpenStatus ); ?> />
-			<label for="<?php echo $this->get_field_id('show_open_status'); ?>"><?php _e( 'Show the open status message above the operating hours.', 'connections_cnbh' ); ?></label>
-		</p>
+		cnHTML::checkbox(
+			array(
+				'prefix'  => '',
+				'id'      => $this->get_field_id('highlight_open_period'),
+				'name'    => $this->get_field_name('highlight_open_period'),
+				'label'   => __( 'Highlight the current open period within the operating hours.', 'connections_cnbh' ),
+				'before'  => '<p>',
+				'after'   => '</p>',
+				),
+			$highlightOpenPeriod
+		);
 
-		<p>
-			<input id="<?php echo $this->get_field_id('highlight_open_period'); ?>" name="<?php echo $this->get_field_name('highlight_open_period'); ?>" type="checkbox" value="1" <?php checked( '1', $highlightOpenPeriod ); ?> />
-			<label for="<?php echo $this->get_field_id('highlight_open_period'); ?>"><?php _e( 'Highlight the current open period within the operating hours.', 'connections_cnbh' ); ?></label>
-		</p>
-
-		<p>
-
-			<?php
-
-			cnHTML::label(
-				array(
-					'for'   => $this->get_field_name('day_name'),
-					'label' => __( 'Display the weekday name as:', 'connections_cnbh' ),
-					)
-				);
-
-			cnHTML::select(
-				array(
-					'id'      => $this->get_field_name('day_name'),
-					'options' => array(
-						'full'    => __( 'Full Name', 'connections_cnbh' ),
-						'abbrev'  => __( 'Abbreviated', 'connections_cnbh' ),
-						'initial' => __( 'Initial', 'connections_cnbh' ),
-						),
-					'before'   => '',
-					'after'    => '',
+		cnHTML::select(
+			array(
+				'id'      => $this->get_field_name('day_name'),
+				'options' => array(
+					'full'    => __( 'Full Name', 'connections_cnbh' ),
+					'abbrev'  => __( 'Abbreviated', 'connections_cnbh' ),
+					'initial' => __( 'Initial', 'connections_cnbh' ),
 					),
-				isset( $instance['day_name'] ) ? $instance['day_name'] : 'abbrev'
-			);
+				'label'    => __( 'Display the weekday name as:', 'connections_cnbh' ),
+				'before'   => '<p>',
+				'after'    => '</p>',
+				),
+			isset( $instance['day_name'] ) ? $instance['day_name'] : 'abbrev'
+		);
 
-			?>
-
-		</p>
-
-		<?php
 	}
 
 	/**
