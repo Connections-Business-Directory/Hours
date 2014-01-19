@@ -68,11 +68,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			// Business Hours uses a custom field type, so let's add the action to add it.
 			add_action( 'cn_meta_field-business_hours', array( __CLASS__, 'field' ), 10, 2 );
 
+			// Add the business hours option to the admin settings page.
+			add_filter( 'cn_content_blocks', array( __CLASS__, 'settingsOption') );
+
 			// Enqueue the public CSS
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueueScripts' ), 11 );
 
 			// Add the action that'll be run when calling $entry->getMetaBlock( 'cnbh' ) from within a template.
-			add_action( 'cn_meta_output_field-cnbh', array( __CLASS__, 'block' ), 10, 3 );
+			add_action( 'cn_output_meta_field-business_hours', array( __CLASS__, 'block' ), 10, 4 );
 
 			// Register the widget.
 			add_action( 'widgets_init', create_function( '', 'register_widget( "cnbhHoursWidget" );' ) );
@@ -281,6 +284,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $weekday;
 		}
 
+		public static function settingsOption( $blocks ) {
+
+			$blocks['business_hours'] = 'Business Hours';
+
+			return $blocks;
+		}
+
 		public static function registerMetabox( $metabox ) {
 
 			$atts = array(
@@ -290,7 +300,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				'priority' => 'core',
 				'fields'   => array(
 					array(
-						'id'    => 'cnbh',
+						'id'    => 'business_hours',
 						'type'  => 'business_hours',
 						),
 					),
@@ -491,7 +501,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * @return string
 		 */
-		public static function block( $id, $value, $atts ) {
+		public static function block( $id, $value, $object = NULL, $atts ) {
 			global $wp_locale;
 
 			$defaults = array(

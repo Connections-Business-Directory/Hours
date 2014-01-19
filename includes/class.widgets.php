@@ -259,7 +259,7 @@ class cnbhHoursWidget extends WP_Widget {
 			echo $before_title . $title . $after_title;
 
 			// Display the business hours.
-			Connections_Business_Hours::block( 'cnbh', $metadata, $atts );
+			Connections_Business_Hours::block( 'cnbh', $metadata, NULL, $atts );
 
 			echo $after_widget;
 
