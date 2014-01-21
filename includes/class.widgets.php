@@ -218,7 +218,7 @@ class cnbhHoursWidget extends WP_Widget {
 			$entry = new cnEntry( $result[0] );
 
 			// Query the entry meta.
-			$metadata = $entry->getMeta( array( 'key' => 'cnbh', 'single' => TRUE ) );
+			$metadata = $entry->getMeta( array( 'key' => 'business_hours', 'single' => TRUE ) );
 
 			// If there is no meta; bail.
 			if ( $metadata === FALSE ) return;
