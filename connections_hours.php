@@ -5,10 +5,11 @@
  * them.
  *
  * @package   Connections Business Hours
+ * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
  * @link      http://connections-pro.com
- * @copyright 2013 Steven A. Zahm
+ * @copyright 2014 Steven A. Zahm
  *
  * @wordpress-plugin
  * Plugin Name:       Connections Business Hours
@@ -17,9 +18,9 @@
  * Version:           1.0
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
- * Text Domain:       connections_hours
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       connections_hours
  * Domain Path:       /languages
  */
 
@@ -153,13 +154,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		public static function registerScripts() {
 
 			// Register CSS.
-			wp_register_style( 'cnbh-admin' , CNBH_URL . 'assets/css/cnbh-admin.css', array( 'cn-admin', 'cn-admin-jquery-ui' ) , '1.0' );
-			wp_register_style( 'cnbh-public', CNBH_URL . 'assets/css/cnbh-public.css', array(), '1.0' );
+			wp_register_style( 'cnbh-admin' , CNBH_URL . 'assets/css/cnbh-admin.css', array( 'cn-admin', 'cn-admin-jquery-ui' ) , CNBH_CURRENT_VERSION );
+			wp_register_style( 'cnbh-public', CNBH_URL . 'assets/css/cnbh-public.css', array( 'connections-user' ), CNBH_CURRENT_VERSION );
 			wp_register_style( 'cnbh-public-jquery-ui', CN_URL . 'assets/css/jquery-ui-fresh.css', array( 'cnbh-public' ), CN_CURRENT_VERSION );
 
 			// Register JavaScript.
 			wp_register_script( 'jquery-timepicker' , CNBH_URL . 'assets/js/jquery-ui-timepicker-addon.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
-			wp_register_script( 'cnbh-ui-js' , CNBH_URL . 'assets/js/cnbh-admin.js', array( 'jquery-timepicker' ) , '1.0', true );
+			wp_register_script( 'cnbh-ui-js' , CNBH_URL . 'assets/js/cnbh-admin.js', array( 'jquery-timepicker' ) , CNBH_CURRENT_VERSION, true );
 
 			wp_localize_script( 'cnbh-ui-js', 'cnbhDateTimePickerOptions', Connections_Business_Hours::dateTimePickerOptions() );
 
