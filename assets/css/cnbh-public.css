@@ -22,9 +22,20 @@ add:
 }
 
 /* Bold the table head, foot and row head. */
-#cn-metabox-business-hours thead, #cn-metabox-business-hours tfoot, #cn-metabox-business-hours th {
+#cn-metabox-business-hours thead,
+#cn-metabox-business-hours tfoot,
+#cn-metabox-business-hours th {
 	font-weight: bold;
 	width: auto;
+}
+
+tr#cn-metabox-id-business_hours > th {
+	display: none ;
+}
+
+#start_of_week tr > th,
+#start_of_week tr > td {
+	width: auto !important;
 }
 
 /* The input fields are readonly to prevent manual text input. */
