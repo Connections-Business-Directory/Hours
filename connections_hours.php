@@ -75,7 +75,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			// Enqueue the public CSS
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueueScripts' ), 11 );
 
-			// Add the action that'll be run when calling $entry->getMetaBlock( 'cnbh' ) from within a template.
+			// Add the action that'll be run when calling $entry->getContentBlock( 'business_hours' ) from within a template.
 			add_action( 'cn_output_meta_field-business_hours', array( __CLASS__, 'block' ), 10, 4 );
 
 			// Register the widget.
@@ -471,6 +471,8 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * @return array
 		 */
 		public static function sanitize( $value ) {
+
+			if ( empty( $value ) ) return $value;
 
 			foreach ( $value as $key => $day ) {
 
