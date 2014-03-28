@@ -29,10 +29,6 @@ add:
 	width: auto;
 }
 
-tr#cn-metabox-id-business_hours > th {
-	display: none ;
-}
-
 #start_of_week tr > th,
 #start_of_week tr > td {
 	width: auto !important;
