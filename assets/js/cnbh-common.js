@@ -53,6 +53,13 @@
 				// Hide the "+" button that was clicked.
 				// $( this ).toggle();
 
+				// If all period except the base period has been removed;
+				// show the "+" button so a new period can be added.
+				// if ( data.count == 1 ) {
+
+				// 	row.find('.button.cnbh-remove-period').toggle();
+				// }
+
 				// After adding a row, the periods need to be reindexed.
 				CNBH_Period.reindex( day );
 			});
@@ -71,7 +78,7 @@
 				// show the "+" button so a new period can be added.
 				// if ( data.count == 0 ) {
 
-				// 	row.prev().find('.button.cnbh-add-period').toggle();
+				// 	row.prev().find('.button.cnbh-remove-period').toggle();
 				// }
 
 				row.remove();
@@ -104,9 +111,22 @@
 
 	CNBH_Period.init();
 
+	cnbhDateTimePickerOptions.onSelect = function(){
+		$(this)[tog(this.value)]('x');
+	};
+
 	// Disable manual text entry on the time inputs.
 	// Bind the timepicker to the inputs.
 	$('.cn-timepicker').timepicker(	cnbhDateTimePickerOptions ).prop( 'readonly', true );
+
+	// @see http://stackoverflow.com/a/6258628
+	function tog(v){ return v ? 'addClass' : 'removeClass'; }
+
+	$(document).on('mousemove', '.x', function( e ){
+		$(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
+	}).on('click', '.onX', function(){
+		$(this).removeClass('x onX').val('');
+	});
 
 	// Counter Functions Credit:
 	// http://stackoverflow.com/a/5656660

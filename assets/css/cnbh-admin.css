@@ -3,10 +3,34 @@
 	overflow: hidden;
 }
 
+#business-hours table {
+	border-collapse: collapse;
+	width: auto;
+}
+
 /* Bold the table head, foot and row head. */
 #business-hours thead, #business-hours tfoot, #business-hours th {
 	font-weight: bold;
+	vertical-align: middle;
 	width: auto;
+}
+
+#business-hours table tbody th {
+	border-right: 15px solid transparent;
+	width: auto;
+}
+#business-hours table tbody th.cn-metabox-label-empty {
+	border-right: none;
+	width: 0;
+}
+
+#business-hours table tbody {
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+}
+
+#business-hours table tr td {
+	border-right: 15px solid transparent;
 }
 
 /* The input fields are readonly to prevent manual text input. */
@@ -17,13 +41,30 @@
 	width: 17.5em;
 }
 
+#business-hours table tr td p {
+	margin-top: 16px;
+}
+
+#business-hours .cn-timepicker {
+	background:url(../images/x.png) no-repeat right -10px center;
+}
+#business-hours .cn-timepicker.x {
+	background-position: right 5px center;
+}
+#business-hours .cn-timepicker.onX {
+	cursor:pointer;
+}
+
 /* The add/remove periond buttons. */
 #business-hours .button {
+	border-radius: 50%;
 	display: inline-block;
-	font-size: 18px;
+	font-size: 1.5em;
 	font-weight: 600;
 	height: 24px;
-	width: 34px;
+	line-height: 1em;
+	padding: 0 5px;
+	width: 24px;
 }
 
 /* For timepicker. */

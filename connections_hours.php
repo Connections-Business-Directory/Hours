@@ -5,10 +5,11 @@
  * them.
  *
  * @package   Connections Business Hours
+ * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
  * @link      http://connections-pro.com
- * @copyright 2013 Steven A. Zahm
+ * @copyright 2014 Steven A. Zahm
  *
  * @wordpress-plugin
  * Plugin Name:       Connections Business Hours
@@ -17,9 +18,9 @@
  * Version:           1.0
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
- * Text Domain:       connections_hours
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       connections_hours
  * Domain Path:       /languages
  */
 
@@ -35,7 +36,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		public function __construct() {
 
 			self::defineConstants();
-			// self::loadDependencies();
+			self::loadDependencies();
 
 			// register_activation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'activate' ) );
 			// register_deactivation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'deactivate' ) );
@@ -49,19 +50,36 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			 */
 			add_action( 'init', array( __CLASS__ , 'loadTextdomain' ) );
 
+			// Register CSS and JavaScript.
+			add_action( 'init', array( __CLASS__ , 'registerScripts' ) );
+
 			if ( is_admin() ) {
 
+				// Enqueue the admin CSS and JS
 				add_action( 'admin_enqueue_scripts', array( __CLASS__, 'adminStyles' ) );
-				add_action( 'admin_enqueue_scripts', array( __CLASS__, 'adminScripts') );
+				// add_action( 'admin_enqueue_scripts', array( __CLASS__, 'adminScripts') );
 
-				// Register the metabox and fields.
-				add_action( 'cn_metabox', array( __CLASS__, 'registerMetabox') );
-
-				// Business Hours uses a custom field type, so let's add the action to add it.
-				add_action( 'cn_meta_field-business_hours', array( __CLASS__, 'field' ), 10, 2 );
+				// Since we're using a custom field, we need to add our own sanitization method.
+				add_filter( 'cn_meta_sanitize_field-business_hours', array( __CLASS__, 'sanitize') );
 			}
 
-			add_action( 'cn_meta_output_field-cnbh', array( __CLASS__, 'block' ), 10, 3 );
+			// Register the metabox and fields.
+			add_action( 'cn_metabox', array( __CLASS__, 'registerMetabox') );
+
+			// Business Hours uses a custom field type, so let's add the action to add it.
+			add_action( 'cn_meta_field-business_hours', array( __CLASS__, 'field' ), 10, 2 );
+
+			// Add the business hours option to the admin settings page.
+			add_filter( 'cn_content_blocks', array( __CLASS__, 'settingsOption') );
+
+			// Enqueue the public CSS
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueueScripts' ), 11 );
+
+			// Add the action that'll be run when calling $entry->getContentBlock( 'business_hours' ) from within a template.
+			add_action( 'cn_output_meta_field-business_hours', array( __CLASS__, 'block' ), 10, 4 );
+
+			// Register the widget.
+			add_action( 'widgets_init', create_function( '', 'register_widget( "cnbhHoursWidget" );' ) );
 		}
 
 		/**
@@ -82,7 +100,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		private static function loadDependencies() {
 
-			// require_once( CNBH_BASE_PATH . '' );
+			require_once( CNBH_PATH . 'includes/class.widgets.php' );
 		}
 
 
@@ -133,6 +151,23 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			load_plugin_textdomain( $textdomain, FALSE, $languagesDirectory );
 		}
 
+		public static function registerScripts() {
+
+			// If SCRIPT_DEBUG is set and TRUE load the non-minified JS files, otherwise, load the minified files.
+			$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
+			// Register CSS.
+			wp_register_style( 'cnbh-admin' , CNBH_URL . "assets/css/cnbh-admin$min.css", array( 'cn-admin', 'cn-admin-jquery-ui' ) , CNBH_CURRENT_VERSION );
+			wp_register_style( 'cnbh-public', CNBH_URL . "assets/css/cnbh-public$min.css", array( 'cn-public', 'cn-form-public' ), CNBH_CURRENT_VERSION );
+
+			// Register JavaScript.
+			wp_register_script( 'jquery-timepicker' , CNBH_URL . "assets/js/jquery-ui-timepicker-addon$min.js", array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
+			wp_register_script( 'cnbh-ui-js' , CNBH_URL . "assets/js/cnbh-common$min.js", array( 'jquery-timepicker' ) , CNBH_CURRENT_VERSION, true );
+
+			wp_localize_script( 'cnbh-ui-js', 'cnbhDateTimePickerOptions', Connections_Business_Hours::dateTimePickerOptions() );
+
+		}
+
 		/**
 		 * Enqueues the CSS on the Connections admin pages only.
 		 *
@@ -150,7 +185,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 			if ( in_array( $pageHook, $editorPages ) ) {
 
-				wp_enqueue_style( 'cnbh-admin' , CNBH_URL . 'assets/css/cnbh-admin.css', array( 'cn-admin', 'cn-admin-jquery-ui' ) , '1.0' );
+				wp_enqueue_style( 'cnbh-admin' );
 			}
 		}
 
@@ -171,11 +206,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 			if ( in_array( $pageHook, $editorPages ) ) {
 
-				wp_enqueue_script( 'jquery-timepicker' , CNBH_URL . 'assets/js/jquery-ui-timepicker-addon.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
-				wp_enqueue_script( 'cnbh-ui-admin-js' , CNBH_URL . 'assets/js/cnbh-admin.js', array( 'jquery-timepicker' ) , '1.0', true );
-
-				wp_localize_script( 'cnbh-ui-admin-js', 'cnbhDateTimePickerOptions', Connections_Business_Hours::dateTimePickerOptions() );
+				wp_enqueue_script( 'cnbh-ui-js' );
 			}
+
+		}
+
+		public static function enqueueScripts() {
+
+			wp_enqueue_style( 'cnbh-public' );
 		}
 
 		public static function dateTimePickerOptions() {
@@ -206,7 +244,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				'parse'         => 'loose',
 				);
 
-			return apply_filters( 'cnbh_timepicker_option', $options );
+			return apply_filters( 'cnbh_timepicker_options', $options );
 		}
 
 		public static function timeFormat() {
@@ -214,9 +252,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return apply_filters( 'cnbh_time_format', get_option('time_format') );
 		}
 
-		public static function formatTime( $value ) {
+		public static function formatTime( $value, $format = NULL ) {
 
-			$format = self::timeFormat();
+			$format = is_null( $format ) ? self::timeFormat() : $format;
 
 			if ( strlen( $value ) > 0 ) {
 
@@ -249,22 +287,29 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $weekday;
 		}
 
-		public static function registerMetabox( $metabox ) {
+		public static function settingsOption( $blocks ) {
+
+			$blocks['business_hours'] = 'Business Hours';
+
+			return $blocks;
+		}
+
+		public static function registerMetabox() {
 
 			$atts = array(
 				'id'       => 'business-hours',
 				'title'    => __( 'Business Hours', 'connections_hours' ),
-				'context'  => 'side',
+				'context'  => 'normal',
 				'priority' => 'core',
 				'fields'   => array(
 					array(
-						'id'    => 'cnbh',
+						'id'    => 'business_hours',
 						'type'  => 'business_hours',
 						),
 					),
 				);
 
-			$metabox::add( $atts );
+			cnMetaboxAPI::add( $atts );
 		}
 
 		public static function field( $field, $value ) {
@@ -272,21 +317,22 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			?>
 
 			<table name="start_of_week" id="start_of_week">
+
+				<thead>
+					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+				</thead>
+
+				<tfoot>
+					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+				</tfoot>
+
 				<tbody>
-
-					<thead>
-						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
-					</thead>
-
-					<tfoot>
-						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
-					</tfoot>
 
 					<tr id="cnbh-period" style="display: none;">
 						<td>&nbsp;</td>
@@ -411,91 +457,277 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			</table>
 
 			<?php
+
+			printf( '<p>%s</p>', __( 'To create a closed day or closed period within a day, leave both the open and close hours blank.', 'connections_hours' ) );
+
+			// Enqueue the JS required for the metabox.
+			wp_enqueue_script( 'cnbh-ui-js' );
 		}
 
-		public static function block( $id, $value, $atts ) {
+		/**
+		 * Sanitize the times as a text input using the cnSanitize class.
+		 *
+		 * @access  private
+		 * @since  1.0
+		 * @param  array $value   The opening/closing hours.
+		 *
+		 * @return array
+		 */
+		public static function sanitize( $value ) {
+
+			if ( empty( $value ) ) return $value;
+
+			foreach ( $value as $key => $day ) {
+
+				foreach ( $day as $period => $time ) {
+
+					// Save all time values in 24hr format.
+					$time['open']  = self::formatTime( $time['open'], 'H:i' );
+					$time['close'] = self::formatTime( $time['close'], 'H:i' );
+
+					$value[ $key ][ $period ]['open']  = cnSanitize::string( 'text', $time['open'] );
+					$value[ $key ][ $period ]['close'] = cnSanitize::string( 'text', $time['close'] );
+
+				}
+			}
+
+			return $value;
+		}
+
+		/**
+		 * The output of the business hour data.
+		 *
+		 * Called by the cn_meta_output_field-cnbh action in cnOutput->getMetaBlock().
+		 *
+		 * @access  private
+		 * @since  1.0
+		 * @param  string $id    The field id.
+		 * @param  array  $value The business hours data.
+		 * @param  array  $atts  The shortcode atts array passed from the calling action.
+		 *
+		 * @return string
+		 */
+		public static function block( $id, $value, $object = NULL, $atts ) {
+			global $wp_locale;
+
+			$defaults = array(
+				'header'                => TRUE,
+				'footer'                => FALSE,
+				'day_name'              => 'full', // Valid options are 'full', 'abbrev' or 'initial'.
+				'show_closed_day'       => TRUE,
+				'show_closed_period'    => FALSE,
+				'show_if_no_hours'      => FALSE,
+				'show_open_status'      => TRUE,
+				'highlight_open_period' => TRUE,
+				'open_close_separator'  => '&ndash;',
+				);
+
+			$atts = wp_parse_args( $atts, $defaults );
+
+
+
+			echo '<div class="cnbh-block">';
+
+			// Whether or not to display the open status message.
+			if ( $atts['show_open_status'] && self::openStatus( $value ) ) {
+
+				printf( '<p class="cnbh-status cnbh-status-open">%s</p>' , 'We are currently open.' );
+
+			} elseif ( $atts['show_open_status'] ) {
+
+				printf( '<p class="cnbh-status cnbh-status-closed">%s</p>' , 'Sorry, we are currently closed.' );
+			}
 
 			?>
 
-			<table name="start_of_week" id="start_of_week">
+			<table class="cnbh">
+
+				<?php if ( $atts['header'] ) : ?>
+
+				<thead>
+					<th>&nbsp;</th>
+					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+					<th class="cnbh-separator">&nbsp;</th>
+					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+				</thead>
+
+				<?php endif; ?>
+
+				<?php if ( $atts['footer'] ) : ?>
+
+				<tfoot>
+					<th>&nbsp;</th>
+					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+					<th class="cnbh-separator">&nbsp;</th>
+					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+				</tfoot>
+
+				<?php endif; ?>
+
 				<tbody>
-
-					<thead>
-						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-					</thead>
-
-					<tfoot>
-						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-					</tfoot>
-
-				<?php
+					<?php
 
 					foreach ( self::getWeekdays() as $key => $day ) {
 
-						// If there are no periods saved for the day,
-						// add an empty period to prevent index not found errors.
-						if ( ! isset( $value[ $key ] ) ) {
+						// Display the day as either its initial or abbreviation.
+						switch ( $atts['day_name'] ) {
 
-							$value[ $key ] = array(
-								0 => array(
-									'open'  => '',
-									'close' => ''
-									),
-								);
+							case 'initial' :
+
+								$day = $wp_locale->get_weekday_initial( $day );
+								break;
+
+							case 'abbrev' :
+
+								$day = $wp_locale->get_weekday_abbrev( $day );
+								break;
 						}
 
-						foreach ( $value[ $key ] as $period => $data ) {
+						// Show the "Closed" message if there are no open and close hours recorded for the day.
+						if ( $atts['show_closed_day'] && ! self::openToday( $value[ $key ] ) ) {
 
-							$open = cnHTML::field(
-										array(
-											'type'     => 'text',
-											'class'    => 'timepicker',
-											'id'       => $id . '[' . $key . '][' . $period . '][open]',
-											'required' => FALSE,
-											'label'    => '',
-											'before'   => '',
-											'after'    => '',
-											'return'   => TRUE,
-										),
-										self::formatTime( $data['open'] )
-									);
-
-							$close = cnHTML::field(
-										array(
-											'type'     => 'text',
-											'class'    => 'timepicker',
-											'id'       => $id . '[' . $key . '][' . $period . '][close]',
-											'required' => FALSE,
-											'label'    => '',
-											'before'   => '',
-											'after'    => '',
-											'return'   => TRUE,
-										),
-										self::formatTime( $data['close'] )
-									);
-
-							printf( '<tr %1$s %2$s %3$s><th>%4$s</th><td>%5$s</td><td>%6$s</td></tr>',
+							printf( '<tr %1$s %2$s %3$s><th>%4$s</th><td class="cnbh-closed" colspan="3">%5$s</td></tr>',
 								'class="cnbh-day-' . absint( $key ) . '"',
+								'id="cnbh-day-' . absint( $key ) . '"',
+								'data-count="' . absint( count( $value[ $key ] ) - 1 ) . '"',
+								esc_attr( $day ),
+								__( 'Closed Today', 'connections_hours' )
+								);
+
+							// Exit this loop.
+							continue;
+						}
+
+						// If there are open and close hours recorded for the day, loop thru the open periods.
+						foreach ( $value[ $key ] as $period => $time ) {
+
+							// Show the "Closed" message if there are no open and close hours recorded for the period.
+							if ( self::openPeriod( $time ) ) {
+
+							printf( '<tr %1$s %2$s %3$s><th>%4$s</th><td class="cnbh-open">%5$s</td><td class="cnbh-separator">%6$s</td><td class="cnbh-close">%7$s</td></tr>',
+								'class="cnbh-day-' . absint( $key ) . ( $atts['highlight_open_period'] && date( 'w', current_time( 'timestamp' ) ) == $key && self::isOpen( $time['open'], $time['close'] ) ? ' cnbh-open-period' : '' ) . '"',
 								$period == 0 ? 'id="cnbh-day-' . absint( $key ) . '"' : '',
 								$period == 0 ? 'data-count="' . absint( count( $value[ $key ] ) - 1 ) . '"' : '',
 								$period == 0 ? esc_attr( $day ) : '&nbsp;',
-								$open,
-								$close
+								self::formatTime( $time['open'] ),
+								esc_attr( $atts['open_close_separator'] ),
+								self::formatTime( $time['close'] )
 								);
+
+							} elseif ( $atts['show_closed_period'] && $period > 0 ) {
+
+								printf( '<tr %1$s %2$s %3$s><th>%4$s</th><td class="cnbh-closed" colspan="3">%5$s</td></tr>',
+									'class="cnbh-day-' . absint( $key ) . '"',
+									'id="cnbh-day-' . absint( $key ) . '"',
+									'data-count="' . absint( count( $value[ $key ] ) - 1 ) . '"',
+									$period == 0 ? esc_attr( $day ) : '&nbsp;',
+									__( 'Closed Period', 'connections_hours' )
+									);
+
+							}
+
 						}
 
 					}
 
-				?>
+					?>
 
 				</tbody>
 			</table>
 
 			<?php
+
+			echo '</div>';
+		}
+
+		public static function openStatus( $value ) {
+
+			foreach ( self::getWeekdays() as $key => $day ) {
+
+				foreach ( $value[ $key ] as $period => $time ) {
+
+					if ( date( 'w', current_time( 'timestamp' ) ) == $key && self::isOpen( $time['open'], $time['close'] ) ) return TRUE;
+
+				}
+
+			}
+
+			return FALSE;
+		}
+
+		/**
+		 * Whether or not there are any open hours during the week.
+		 *
+		 * @access  private
+		 * @since  1.0
+		 * @param  array  $days
+		 * @return boolean
+		 */
+		public static function hasOpenHours( $days ) {
+
+			foreach ( $days as $key => $day ) {
+
+				if ( self::openToday( $day ) ) return TRUE;
+			}
+
+			return FALSE;
+		}
+
+		/**
+		 * Whether or not the day has any open periods.
+		 *
+		 * @access  private
+		 * @since  1.0
+		 * @param  array $day
+		 *
+		 * @return bool
+		 */
+		private static function openToday( $day ) {
+
+			foreach ( $day as $period => $data ) {
+
+				if ( self::openPeriod( $data ) ) return TRUE;
+			}
+
+			return FALSE;
+		}
+
+		/**
+		 * Whether or not the period is open.
+		 *
+		 * @access  private
+		 * @since  1.0
+		 * @param  array $period
+		 *
+		 * @return bool
+		 */
+		private static function openPeriod( $period ) {
+
+			if ( empty( $period ) ) return FALSE;
+
+			if ( ! empty( $period['open'] ) && ! empty( $period['close'] ) ) return TRUE;
+
+			return FALSE;
+		}
+
+		// http://stackoverflow.com/a/17145145
+		private static function isOpen( $t1, $t2, $tn = NULL ) {
+
+			$tn = is_null( $tn ) ? date( 'H:i', current_time( 'timestamp' ) ) : self::formatTime( $tn, 'H:i' );
+
+			$t1 = +str_replace( ':', '', $t1 );
+			$t2 = +str_replace( ':', '', $t2 );
+			$tn = +str_replace( ':', '', $tn );
+
+			if ( $t2 >= $t1 ) {
+
+				return $t1 <= $tn && $tn < $t2;
+
+			} else {
+
+				return ! ( $t2 <= $tn && $tn < $t1 );
+			}
+
 		}
 
 	}
@@ -505,6 +737,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 	 *
 	 * @access public
 	 * @since 1.0
+	 *
 	 * @return mixed (object)|(bool)
 	 */
 	function Connections_Business_Hours() {
