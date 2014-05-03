@@ -153,14 +153,16 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		public static function registerScripts() {
 
+			// If SCRIPT_DEBUG is set and TRUE load the non-minified JS files, otherwise, load the minified files.
+			$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
 			// Register CSS.
-			wp_register_style( 'cnbh-admin' , CNBH_URL . 'assets/css/cnbh-admin.css', array( 'cn-admin', 'cn-admin-jquery-ui' ) , CNBH_CURRENT_VERSION );
-			wp_register_style( 'cnbh-public', CNBH_URL . 'assets/css/cnbh-public.css', array( 'connections-user' ), CNBH_CURRENT_VERSION );
-			wp_register_style( 'cnbh-public-jquery-ui', CN_URL . 'assets/css/jquery-ui-fresh.css', array( 'cnbh-public' ), CN_CURRENT_VERSION );
+			wp_register_style( 'cnbh-admin' , CNBH_URL . "assets/css/cnbh-admin$min.css", array( 'cn-admin', 'cn-admin-jquery-ui' ) , CNBH_CURRENT_VERSION );
+			wp_register_style( 'cnbh-public', CNBH_URL . "assets/css/cnbh-public$min.css", array( 'cn-public', 'cn-form-public' ), CNBH_CURRENT_VERSION );
 
 			// Register JavaScript.
-			wp_register_script( 'jquery-timepicker' , CNBH_URL . 'assets/js/jquery-ui-timepicker-addon.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
-			wp_register_script( 'cnbh-ui-js' , CNBH_URL . 'assets/js/cnbh-admin.js', array( 'jquery-timepicker' ) , CNBH_CURRENT_VERSION, true );
+			wp_register_script( 'jquery-timepicker' , CNBH_URL . "assets/js/jquery-ui-timepicker-addon$min.js", array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
+			wp_register_script( 'cnbh-ui-js' , CNBH_URL . "assets/js/cnbh-common$min.js", array( 'jquery-timepicker' ) , CNBH_CURRENT_VERSION, true );
 
 			wp_localize_script( 'cnbh-ui-js', 'cnbhDateTimePickerOptions', Connections_Business_Hours::dateTimePickerOptions() );
 
@@ -211,7 +213,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		public static function enqueueScripts() {
 
-			wp_enqueue_style( 'cnbh-public-jquery-ui' );
+			wp_enqueue_style( 'cnbh-public' );
 		}
 
 		public static function dateTimePickerOptions() {
@@ -292,7 +294,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $blocks;
 		}
 
-		public static function registerMetabox( $metabox ) {
+		public static function registerMetabox() {
 
 			$atts = array(
 				'id'       => 'business-hours',
@@ -307,7 +309,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 					),
 				);
 
-			$metabox::add( $atts );
+			cnMetaboxAPI::add( $atts );
 		}
 
 		public static function field( $field, $value ) {
@@ -315,21 +317,22 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			?>
 
 			<table name="start_of_week" id="start_of_week">
+
+				<thead>
+					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+				</thead>
+
+				<tfoot>
+					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+				</tfoot>
+
 				<tbody>
-
-					<thead>
-						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
-					</thead>
-
-					<tfoot>
-						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
-					</tfoot>
 
 					<tr id="cnbh-period" style="display: none;">
 						<td>&nbsp;</td>
@@ -538,30 +541,30 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			?>
 
 			<table class="cnbh">
+
+				<?php if ( $atts['header'] ) : ?>
+
+				<thead>
+					<th>&nbsp;</th>
+					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+					<th class="cnbh-separator">&nbsp;</th>
+					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+				</thead>
+
+				<?php endif; ?>
+
+				<?php if ( $atts['footer'] ) : ?>
+
+				<tfoot>
+					<th>&nbsp;</th>
+					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+					<th class="cnbh-separator">&nbsp;</th>
+					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+				</tfoot>
+
+				<?php endif; ?>
+
 				<tbody>
-
-					<?php if ( $atts['header'] ) : ?>
-
-					<thead>
-						<th>&nbsp;</th>
-						<th><?php _e( 'Open', 'connections_hours' ); ?></th>
-						<th class="cnbh-separator">&nbsp;</th>
-						<th><?php _e( 'Close', 'connections_hours' ); ?></th>
-					</thead>
-
-					<?php endif; ?>
-
-					<?php if ( $atts['footer'] ) : ?>
-
-					<tfoot>
-						<th>&nbsp;</th>
-						<th><?php _e( 'Open', 'connections_hours' ); ?></th>
-						<th class="cnbh-separator">&nbsp;</th>
-						<th><?php _e( 'Close', 'connections_hours' ); ?></th>
-					</tfoot>
-
-					<?php endif; ?>
-
 					<?php
 
 					foreach ( self::getWeekdays() as $key => $day ) {
