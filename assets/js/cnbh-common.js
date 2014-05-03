@@ -111,9 +111,22 @@
 
 	CNBH_Period.init();
 
+	cnbhDateTimePickerOptions.onSelect = function(){
+		$(this)[tog(this.value)]('x');
+	};
+
 	// Disable manual text entry on the time inputs.
 	// Bind the timepicker to the inputs.
 	$('.cn-timepicker').timepicker(	cnbhDateTimePickerOptions ).prop( 'readonly', true );
+
+	// @see http://stackoverflow.com/a/6258628
+	function tog(v){ return v ? 'addClass' : 'removeClass'; }
+
+	$(document).on('mousemove', '.x', function( e ){
+		$(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
+	}).on('click', '.onX', function(){
+		$(this).removeClass('x onX').val('');
+	});
 
 	// Counter Functions Credit:
 	// http://stackoverflow.com/a/5656660
