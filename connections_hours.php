@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0
+ * Version:           1.0.1
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -56,8 +56,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			if ( is_admin() ) {
 
 				// Enqueue the admin CSS and JS
-				add_action( 'admin_enqueue_scripts', array( __CLASS__, 'adminStyles' ) );
-				// add_action( 'admin_enqueue_scripts', array( __CLASS__, 'adminScripts') );
+				add_action( 'cn_admin_enqueue_edit_styles', array( __CLASS__, 'adminStyles' ) );
 
 				// Since we're using a custom field, we need to add our own sanitization method.
 				add_filter( 'cn_meta_sanitize_field-business_hours', array( __CLASS__, 'sanitize') );
@@ -91,7 +90,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.1' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -178,39 +177,20 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		public static function adminStyles( $pageHook ) {
 
-			// Grab an instance of the Connections object.
-			$instance = Connections_Directory();
-
-			$editorPages = array( $instance->pageHook->manage, $instance->pageHook->add );
-
-			if ( in_array( $pageHook, $editorPages ) ) {
-
-				wp_enqueue_style( 'cnbh-admin' );
-			}
+			wp_enqueue_style( 'cnbh-admin' );
 		}
 
 		/**
-		 * Enqueues the JavaScript on the Connections admin pages only.
+		 * Enqueues the CSS.
+		 *
+		 * NOTE: This will only be enqueued if Form is installed and active
+		 * because a CSS file registered by Form is listed as a dependancy
+		 * when registering 'cnbh-public'.
 		 *
 		 * @access private
 		 * @since  1.0
-		 * @param  string $pageHook The current admin page hook.
 		 * @return void
 		 */
-		public static function adminScripts( $pageHook ) {
-
-			// Grab an instance of the Connections object.
-			$instance = Connections_Directory();
-
-			$editorPages = array( $instance->pageHook->manage, $instance->pageHook->add );
-
-			if ( in_array( $pageHook, $editorPages ) ) {
-
-				wp_enqueue_script( 'cnbh-ui-js' );
-			}
-
-		}
-
 		public static function enqueueScripts() {
 
 			wp_enqueue_style( 'cnbh-public' );
