@@ -66,13 +66,24 @@ add:
 
 /* The add/remove periond buttons. */
 #cn-metabox-business-hours .button {
+	background: #f7f7f7;
+	border-radius: 50%;
+	border: 1px solid rgba(0,0,0,.1);
+	box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+	-webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	color: #555;
 	cursor: pointer;
-	border-color: #cccccc;
-	background: #f7f7f7;
-	-webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
-	box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
- 	vertical-align: top;
+	display: inline-block;
+	font-size: 1.5em;
+	font-weight: 600;
+	height: 22px;
+	line-height: 1em;
+	padding: 0 5px;
+	width: 22px;
+	vertical-align: top;
 }
 
 #cn-metabox-business-hours p .button {
@@ -111,16 +122,6 @@ add:
 }
 #cn-metabox-business-hours input[type="text"].cn-timepicker.onX {
 	cursor:pointer;
-}
-
-#cn-metabox-business-hours .button {
-	border-radius: 50%;
-	font-size: 1.5em;
-	font-weight: 600;
-	height: 24px;
-	line-height: 1em;
-	padding: 0 5px;
-	width: 24px;
 }
 
 /* For timepicker. */

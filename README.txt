@@ -4,11 +4,11 @@ Donate link: http://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
 Requires at least: 3.5
 Tested up to: 3.9
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds the ability to add hours hours to an entry.
+Extension for the Connections Business Directory that adds the ability to add business hours to an entry.
 
 == Description ==
 
@@ -43,6 +43,9 @@ None yet....
 [Screenshots can be found here.](http://connections-pro.com/add-on/hours/)
 
 == Changelog ==
+
+= 1.0.2 05/30/2014 =
+* TWEAK: CSS tweak for better Form 2.0 integration.
 
 = 1.0.1 05/26/2014 =
 * TWEAK: Refine CSS and JS enqueueing logic. Requires Connections >= 0.8.9.
