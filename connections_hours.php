@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -90,7 +90,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.2' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.3' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -155,9 +155,11 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			// If SCRIPT_DEBUG is set and TRUE load the non-minified JS files, otherwise, load the minified files.
 			$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
+			$requiredCSS = class_exists( 'Connections_Form' ) ? array( 'cn-public', 'cn-form-public' ) : array( 'cn-public' );
+
 			// Register CSS.
 			wp_register_style( 'cnbh-admin' , CNBH_URL . "assets/css/cnbh-admin$min.css", array( 'cn-admin', 'cn-admin-jquery-ui' ) , CNBH_CURRENT_VERSION );
-			wp_register_style( 'cnbh-public', CNBH_URL . "assets/css/cnbh-public$min.css", array( 'cn-public', 'cn-form-public' ), CNBH_CURRENT_VERSION );
+			wp_register_style( 'cnbh-public', CNBH_URL . "assets/css/cnbh-public$min.css", $requiredCSS, CNBH_CURRENT_VERSION );
 
 			// Register JavaScript.
 			wp_register_script( 'jquery-timepicker' , CNBH_URL . "assets/js/jquery-ui-timepicker-addon$min.js", array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
@@ -741,8 +743,8 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 	}
 
 	/**
-	 * Since Connections loads at default priority 10, and this extension is dependent on Connections,
-	 * we'll load with priority 11 so we know Connections will be loaded and ready first.
+	 * We'll load the extension on `plugins_loaded` so we know Connections will be loaded and ready first.
+	 * Set priority 11, so we know Form is loaded first.
 	 */
 	add_action( 'plugins_loaded', 'Connections_Business_Hours', 11 );
 
