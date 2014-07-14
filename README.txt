@@ -4,7 +4,7 @@ Donate link: http://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
 Requires at least: 3.5
 Tested up to: 3.9
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,9 @@ None yet....
 [Screenshots can be found here.](http://connections-pro.com/add-on/hours/)
 
 == Changelog ==
+
+= 1.0.4 07/14/2014 =
+* TWEAK: If no open hours have been set for any day or any periods within a day, do not show the open hours content block.
 
 = 1.0.3 06/05/2014 =
 * BUG: The front-end CSS file was not being enqueued if Form was not installed and activated.
