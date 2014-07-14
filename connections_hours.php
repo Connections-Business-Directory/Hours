@@ -506,7 +506,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 			$atts = wp_parse_args( $atts, $defaults );
 
-
+			if ( ! self::hasOpenHours( $value ) ) return;
 
 			echo '<div class="cnbh-block">';
 
