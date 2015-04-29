@@ -2,8 +2,8 @@
 Contributors: shazahm1@hotmail.com
 Donate link: http://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
-Requires at least: 3.5
-Tested up to: 3.9
+Requires at least: 3.8
+Tested up to: 4.0
 Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -27,8 +27,10 @@ The business hours can also be optionally shown within the entry card in both th
 Here are other great extensions that enhance your expirence with the Connections Business Directory:
 
 * [Toolbar](http://wordpress.org/plugins/connections-toolbar/)
-* [Income Levels](http://wordpress.org/plugins/connections-business-directory-income-levels/)
+* [Login](http://wordpress.org/plugins/connections-business-directory-login/)
+* [Income Level](http://wordpress.org/plugins/connections-business-directory-income-levels/)
 * [Education Level](http://wordpress.org/plugins/connections-business-directory-education-levels/)
+* [Languages](http://wordpress.org/plugins/connections-business-directory-languages/)
 
 == Installation ==
 
