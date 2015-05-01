@@ -127,14 +127,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			$textdomain = 'connections_hours';
 
 			// Filter for the plugin languages folder.
-			$languagesDirectory = apply_filters( 'connections_lang_dir', CNBH_DIR_NAME . '/languages/' );
+			$languagesDirectory = apply_filters( 'connections_hours_lang_dir', CNBH_DIR_NAME . '/languages/' );
 
 			// The 'plugin_locale' filter is also used by default in load_plugin_textdomain().
 			$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
 
 			// Filter for WordPress languages directory.
 			$wpLanguagesDirectory = apply_filters(
-				'connections_wp_lang_dir',
+				'connections_hours_wp_lang_dir',
 				WP_LANG_DIR . '/connections-hours/' . sprintf( '%1$s-%2$s.mo', $textdomain, $locale )
 			);
 
