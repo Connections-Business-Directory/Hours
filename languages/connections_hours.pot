@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Connections Business Hours\n"
-"POT-Creation-Date: 2015-04-29 09:49-0500\n"
-"PO-Revision-Date: 2015-04-29 09:49-0500\n"
+"POT-Creation-Date: 2015-04-29 10:57-0500\n"
+"PO-Revision-Date: 2015-04-29 10:57-0500\n"
 "Last-Translator: Steven A. Zahm <helpdesk@connections-pro.com>\n"
 "Language-Team: Steven A. Zahm <helpdesk@connections-pro.com>\n"
 "Language: en_US\n"
@@ -19,97 +19,105 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: connections_hours.php:211
+#: connections_hours.php:206
 msgid "Now"
 msgstr ""
 
-#: connections_hours.php:212
+#: connections_hours.php:207
 msgid "Done"
 msgstr ""
 
-#: connections_hours.php:213
+#: connections_hours.php:208
 msgid "AM"
 msgstr ""
 
-#: connections_hours.php:213
+#: connections_hours.php:208
 msgid "A"
 msgstr ""
 
-#: connections_hours.php:214
+#: connections_hours.php:209
 msgid "PM"
 msgstr ""
 
-#: connections_hours.php:214
+#: connections_hours.php:209
 msgid "P"
 msgstr ""
 
-#: connections_hours.php:217
+#: connections_hours.php:212
 msgid "Choose Time"
 msgstr ""
 
-#: connections_hours.php:218
+#: connections_hours.php:213
 msgid "Time"
 msgstr ""
 
-#: connections_hours.php:219
+#: connections_hours.php:214
 msgid "Hour"
 msgstr ""
 
-#: connections_hours.php:220
+#: connections_hours.php:215
 msgid "Minute"
 msgstr ""
 
-#: connections_hours.php:221
+#: connections_hours.php:216
 msgid "Second"
 msgstr ""
 
-#: connections_hours.php:222
+#: connections_hours.php:217
 msgid "Millisecond"
 msgstr ""
 
-#: connections_hours.php:223
+#: connections_hours.php:218
 msgid "Microsecond"
 msgstr ""
 
-#: connections_hours.php:224
+#: connections_hours.php:219
 msgid "Time Zone"
 msgstr ""
 
-#: connections_hours.php:283 includes/class.widgets.php:21
+#: connections_hours.php:278 includes/class.widgets.php:21
 #: includes/class.widgets.php:26 includes/class.widgets.php:73
 #: includes/class.widgets.php:231
 msgid "Business Hours"
 msgstr ""
 
-#: connections_hours.php:304 connections_hours.php:311
+#: connections_hours.php:299 connections_hours.php:306
 msgid "Weekday"
 msgstr ""
 
-#: connections_hours.php:305 connections_hours.php:312
-#: connections_hours.php:531 connections_hours.php:542
+#: connections_hours.php:300 connections_hours.php:307
+#: connections_hours.php:526 connections_hours.php:537
 msgid "Open"
 msgstr ""
 
-#: connections_hours.php:306 connections_hours.php:313
-#: connections_hours.php:533 connections_hours.php:544
+#: connections_hours.php:301 connections_hours.php:308
+#: connections_hours.php:528 connections_hours.php:539
 msgid "Close"
 msgstr ""
 
-#: connections_hours.php:307 connections_hours.php:314
+#: connections_hours.php:302 connections_hours.php:309
 msgid "Add / Remove Period"
 msgstr ""
 
-#: connections_hours.php:443
+#: connections_hours.php:438
 msgid ""
 "To create a closed day or closed period within a day, leave both the open "
 "and close hours blank."
 msgstr ""
 
-#: connections_hours.php:576
+#: connections_hours.php:511
+msgid "We are currently open."
+msgstr ""
+
+#: connections_hours.php:515
+msgid "Sorry, we are currently closed."
+msgstr ""
+
+#: connections_hours.php:571
 msgid "Closed Today"
 msgstr ""
 
-#: connections_hours.php:606
+#: connections_hours.php:601
 msgid "Closed Period"
 msgstr ""
 
