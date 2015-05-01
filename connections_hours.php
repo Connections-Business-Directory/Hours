@@ -508,11 +508,11 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			// Whether or not to display the open status message.
 			if ( $atts['show_open_status'] && self::openStatus( $value ) ) {
 
-				printf( '<p class="cnbh-status cnbh-status-open">%s</p>' , 'We are currently open.' );
+				printf( '<p class="cnbh-status cnbh-status-open">%s</p>' , __( 'We are currently open.', 'connections_hours' ) );
 
 			} elseif ( $atts['show_open_status'] ) {
 
-				printf( '<p class="cnbh-status cnbh-status-closed">%s</p>' , 'Sorry, we are currently closed.' );
+				printf( '<p class="cnbh-status cnbh-status-closed">%s</p>' , __( 'Sorry, we are currently closed.', 'connections_hours' ) );
 			}
 
 			?>
