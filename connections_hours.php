@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -41,14 +41,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			// register_activation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'activate' ) );
 			// register_deactivation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'deactivate' ) );
 
-			/*
-			 * Load translation. NOTE: This should be ran on the init action hook because
-			 * function calls for translatable strings, like __() or _e(), execute before
-			 * the language files are loaded will not be loaded.
-			 *
-			 * NOTE: Any portion of the plugin w/ translatable strings should be bound to the init action hook or later.
-			 */
-			add_action( 'init', array( __CLASS__ , 'loadTextdomain' ) );
+			// This should run on the `plugins_loaded` action hook. Since the extension loads on the
+			// `plugins_loaded action hook, call immediately.
+			self::loadTextdomain();
 
 			// Register CSS and JavaScript.
 			add_action( 'init', array( __CLASS__ , 'registerScripts' ) );
@@ -90,7 +85,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.4' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.5' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -213,7 +208,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				'amNames'       => array( __( 'AM', 'connections_hours' ), __( 'A', 'connections_hours' ) ),
 				'pmNames'       => array( __( 'PM', 'connections_hours' ), __( 'P', 'connections_hours' ) ),
 				'timeFormat'    => str_replace( $search, $replace, self::timeFormat() ),
-				'timeSuffix'    => __( '', 'connections_hours' ),
+				'timeSuffix'    => '',
 				'timeOnlyTitle' => __( 'Choose Time', 'connections_hours' ),
 				'timeText'      => __( 'Time', 'connections_hours' ),
 				'hourText'      => __( 'Hour', 'connections_hours' ),
@@ -513,11 +508,11 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			// Whether or not to display the open status message.
 			if ( $atts['show_open_status'] && self::openStatus( $value ) ) {
 
-				printf( '<p class="cnbh-status cnbh-status-open">%s</p>' , 'We are currently open.' );
+				printf( '<p class="cnbh-status cnbh-status-open">%s</p>' , __( 'We are currently open.', 'connections_hours' ) );
 
 			} elseif ( $atts['show_open_status'] ) {
 
-				printf( '<p class="cnbh-status cnbh-status-closed">%s</p>' , 'Sorry, we are currently closed.' );
+				printf( '<p class="cnbh-status cnbh-status-closed">%s</p>' , __( 'Sorry, we are currently closed.', 'connections_hours' ) );
 			}
 
 			?>
