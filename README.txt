@@ -46,6 +46,13 @@ None yet....
 
 == Changelog ==
 
+= 1.0.4 05/01/2015 =
+* BUG: Load plugins textdomain on plugins_loaded action hook.
+* BUG: Make two missed strings translation ready.
+* BUG: Empty string should not be run thru gettext.
+* TWEAK: Add POT file for translation.
+* TWEAK: Add Income Level link to readme.txt.
+
 = 1.0.4 07/14/2014 =
 * TWEAK: If no open hours have been set for any day or any periods within a day, do not show the open hours content block.
 
