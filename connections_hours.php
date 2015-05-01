@@ -208,7 +208,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				'amNames'       => array( __( 'AM', 'connections_hours' ), __( 'A', 'connections_hours' ) ),
 				'pmNames'       => array( __( 'PM', 'connections_hours' ), __( 'P', 'connections_hours' ) ),
 				'timeFormat'    => str_replace( $search, $replace, self::timeFormat() ),
-				'timeSuffix'    => __( '', 'connections_hours' ),
+				'timeSuffix'    => '',
 				'timeOnlyTitle' => __( 'Choose Time', 'connections_hours' ),
 				'timeText'      => __( 'Time', 'connections_hours' ),
 				'hourText'      => __( 'Hour', 'connections_hours' ),
