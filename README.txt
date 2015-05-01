@@ -46,7 +46,7 @@ None yet....
 
 == Changelog ==
 
-= 1.0.4 05/01/2015 =
+= 1.0.5 05/01/2015 =
 * BUG: Load plugins textdomain on plugins_loaded action hook.
 * BUG: Make two missed strings translation ready.
 * BUG: Empty string should not be run thru gettext.
