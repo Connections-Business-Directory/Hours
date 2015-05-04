@@ -38,9 +38,6 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			self::defineConstants();
 			self::loadDependencies();
 
-			// register_activation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'activate' ) );
-			// register_deactivation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'deactivate' ) );
-
 			// This should run on the `plugins_loaded` action hook. Since the extension loads on the
 			// `plugins_loaded action hook, call immediately.
 			self::loadTextdomain();
