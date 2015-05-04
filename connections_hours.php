@@ -263,7 +263,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		public static function settingsOption( $blocks ) {
 
-			$blocks['business_hours'] = 'Business Hours';
+			$blocks['business_hours'] = __( 'Business Hours', 'connections_hours' );
 
 			return $blocks;
 		}
