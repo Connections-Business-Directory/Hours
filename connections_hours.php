@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -37,9 +37,6 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 			self::defineConstants();
 			self::loadDependencies();
-
-			// register_activation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'activate' ) );
-			// register_deactivation_hook( CNBH_BASE_NAME . '/connections_hours.php', array( __CLASS__, 'deactivate' ) );
 
 			// This should run on the `plugins_loaded` action hook. Since the extension loads on the
 			// `plugins_loaded action hook, call immediately.
@@ -85,7 +82,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.5' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.6' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -127,14 +124,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			$textdomain = 'connections_hours';
 
 			// Filter for the plugin languages folder.
-			$languagesDirectory = apply_filters( 'connections_lang_dir', CNBH_DIR_NAME . '/languages/' );
+			$languagesDirectory = apply_filters( 'connections_hours_lang_dir', CNBH_DIR_NAME . '/languages/' );
 
 			// The 'plugin_locale' filter is also used by default in load_plugin_textdomain().
 			$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
 
 			// Filter for WordPress languages directory.
 			$wpLanguagesDirectory = apply_filters(
-				'connections_wp_lang_dir',
+				'connections_hours_wp_lang_dir',
 				WP_LANG_DIR . '/connections-hours/' . sprintf( '%1$s-%2$s.mo', $textdomain, $locale )
 			);
 
@@ -266,7 +263,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		public static function settingsOption( $blocks ) {
 
-			$blocks['business_hours'] = 'Business Hours';
+			$blocks['business_hours'] = __( 'Business Hours', 'connections_hours' );
 
 			return $blocks;
 		}

@@ -18,12 +18,12 @@ class cnbhHoursWidget extends WP_Widget {
 	public function __construct() {
 
 		$options = array(
-			'description' => __('Business Hours', 'connections_cnbh' )
+			'description' => __('Business Hours', 'connections_hours' )
 		);
 
 		parent::__construct(
 			'cnbh_display_hours',
-			'Connections : ' . __('Business Hours', 'connections_cnbh' ),
+			'Connections : ' . __('Business Hours', 'connections_hours' ),
 			$options
 		);
 	}
@@ -70,7 +70,7 @@ class cnbhHoursWidget extends WP_Widget {
 	public function form( $instance ) {
 
 		// Setup the default widget options.
-		$title               = isset( $instance['title'] ) && strlen( $instance['title'] ) > 0 ? esc_attr( $instance['title'] ) : __( 'Business Hours', 'connections_cnbh' );
+		$title               = isset( $instance['title'] ) && strlen( $instance['title'] ) > 0 ? esc_attr( $instance['title'] ) : __( 'Business Hours', 'connections_hours' );
 		$header              = isset( $instance['header'] ) ? $instance['header'] : '1';
 		$footer              = isset( $instance['footer'] ) ? $instance['footer'] : '0';
 		$showClosedDay       = isset( $instance['show_closed_day'] ) ? $instance['show_closed_day'] : '1';
@@ -85,7 +85,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'class'  => 'widefat',
 				'id'     => $this->get_field_id('title'),
 				'name'   => $this->get_field_name('title'),
-				'label'  => __('Title:', 'connections_cnbh'),
+				'label'  => __('Title:', 'connections_hours'),
 				'before' => '<p>',
 				'after'  => '</p>',
 				),
@@ -97,7 +97,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('show_open_status'),
 				'name'    => $this->get_field_name('show_open_status'),
-				'label'   => __( 'Show the open status message above the operating hours.', 'connections_cnbh' ),
+				'label'   => __( 'Show the open status message above the operating hours.', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -109,7 +109,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('highlight_open_period'),
 				'name'    => $this->get_field_name('highlight_open_period'),
-				'label'   => __( 'Highlight the current open period within the operating hours.', 'connections_cnbh' ),
+				'label'   => __( 'Highlight the current open period within the operating hours.', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -121,7 +121,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('header'),
 				'name'    => $this->get_field_name('header'),
-				'label'   => __( 'Show Open/Close Header', 'connections_cnbh' ),
+				'label'   => __( 'Show Open/Close Header', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -133,7 +133,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('footer'),
 				'name'    => $this->get_field_name('footer'),
-				'label'   => __( 'Show Open/Close Footer', 'connections_cnbh' ),
+				'label'   => __( 'Show Open/Close Footer', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -145,7 +145,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('show_closed_day'),
 				'name'    => $this->get_field_name('show_closed_day'),
-				'label'   => __( 'Show the days that are closed with a "Closed Today" message.', 'connections_cnbh' ),
+				'label'   => __( 'Show the days that are closed with a "Closed Today" message.', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -157,7 +157,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('show_closed_period'),
 				'name'    => $this->get_field_name('show_closed_period'),
-				'label'   => __( 'Show the periods within a day that are closed with a "Closed Period" message.', 'connections_cnbh' ),
+				'label'   => __( 'Show the periods within a day that are closed with a "Closed Period" message.', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -169,7 +169,7 @@ class cnbhHoursWidget extends WP_Widget {
 				'prefix'  => '',
 				'id'      => $this->get_field_id('show_if_no_hours'),
 				'name'    => $this->get_field_name('show_if_no_hours'),
-				'label'   => __( 'Show the operating hours if there are no open days or periods in the week. All days will be shown with a "Closed Today" message only if the show "Closed Today" message option is enabled.', 'connections_cnbh' ),
+				'label'   => __( 'Show the operating hours if there are no open days or periods in the week. All days will be shown with a "Closed Today" message only if the show "Closed Today" message option is enabled.', 'connections_hours' ),
 				'before'  => '<p>',
 				'after'   => '</p>',
 				),
@@ -180,11 +180,11 @@ class cnbhHoursWidget extends WP_Widget {
 			array(
 				'id'      => $this->get_field_name('day_name'),
 				'options' => array(
-					'full'    => __( 'Full Name', 'connections_cnbh' ),
-					'abbrev'  => __( 'Abbreviated', 'connections_cnbh' ),
-					'initial' => __( 'Initial', 'connections_cnbh' ),
+					'full'    => __( 'Full Name', 'connections_hours' ),
+					'abbrev'  => __( 'Abbreviated', 'connections_hours' ),
+					'initial' => __( 'Initial', 'connections_hours' ),
 					),
-				'label'    => __( 'Display the weekday name as:', 'connections_cnbh' ),
+				'label'    => __( 'Display the weekday name as:', 'connections_hours' ),
 				'before'   => '<p>',
 				'after'    => '</p>',
 				),
@@ -228,7 +228,7 @@ class cnbhHoursWidget extends WP_Widget {
 
 			// Setup the default widget options if they were not set when they were added to the sidebar;
 			// ie. the user did not click the "Save" button on the widget.
-			$title               = strlen( $option['title'] ) > 0 ? $option['title'] : __( 'Business Hours', 'connections_cnbh' );
+			$title               = strlen( $option['title'] ) > 0 ? $option['title'] : __( 'Business Hours', 'connections_hours' );
 			$header              = isset( $option['header'] ) ? $option['header'] : '1';
 			$footer              = isset( $option['footer'] ) ? $option['footer'] : '0';
 			$dayName             = isset( $option['day_name'] ) ? $option['day_name'] : 'abbrev';

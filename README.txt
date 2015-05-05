@@ -4,7 +4,7 @@ Donate link: http://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,15 @@ None yet....
 
 == Changelog ==
 
-= 1.0.4 05/01/2015 =
+= 1.0.6 05/05/2015 =
+* BUG: Add missing text domain to "Business Hours" so it is translatable.
+* BUG: Correct text domain in the widget.
+* BUG: Fix filters for language files.
+* TWEAK: Comment out unused activation/deactivation hooks since they are not used.
+* I18N: Add Swedish (Sweden) translation.
+* I18N: Update POT file.
+
+= 1.0.5 05/01/2015 =
 * BUG: Load plugins textdomain on plugins_loaded action hook.
 * BUG: Make two missed strings translation ready.
 * BUG: Empty string should not be run thru gettext.
