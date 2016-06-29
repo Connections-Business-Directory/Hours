@@ -293,17 +293,21 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			<table name="start_of_week" id="start_of_week">
 
 				<thead>
-					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					<tr>
+						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					</tr>
 				</thead>
 
 				<tfoot>
-					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					<tr>
+						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					</tr>
 				</tfoot>
 
 				<tbody>
@@ -519,10 +523,12 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				<?php if ( $atts['header'] ) : ?>
 
 				<thead>
-					<th>&nbsp;</th>
-					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
-					<th class="cnbh-separator">&nbsp;</th>
-					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					<tr>
+						<th>&nbsp;</th>
+						<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+						<th class="cnbh-separator">&nbsp;</th>
+						<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					</tr>
 				</thead>
 
 				<?php endif; ?>
@@ -530,10 +536,12 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				<?php if ( $atts['footer'] ) : ?>
 
 				<tfoot>
-					<th>&nbsp;</th>
-					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
-					<th class="cnbh-separator">&nbsp;</th>
-					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					<tr>
+						<th>&nbsp;</th>
+						<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+						<th class="cnbh-separator">&nbsp;</th>
+						<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					</tr>
 				</tfoot>
 
 				<?php endif; ?>
