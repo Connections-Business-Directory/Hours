@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -82,7 +82,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.6' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.7' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -293,17 +293,21 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			<table name="start_of_week" id="start_of_week">
 
 				<thead>
-					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					<tr>
+						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					</tr>
 				</thead>
 
 				<tfoot>
-					<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
-					<td><?php _e( 'Open', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Close', 'connections_hours' ); ?></td>
-					<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					<tr>
+						<th><?php _e( 'Weekday', 'connections_hours' ); ?></th>
+						<td><?php _e( 'Open', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Close', 'connections_hours' ); ?></td>
+						<td><?php _e( 'Add / Remove Period', 'connections_hours' ); ?></td>
+					</tr>
 				</tfoot>
 
 				<tbody>
@@ -519,10 +523,12 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				<?php if ( $atts['header'] ) : ?>
 
 				<thead>
-					<th>&nbsp;</th>
-					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
-					<th class="cnbh-separator">&nbsp;</th>
-					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					<tr>
+						<th>&nbsp;</th>
+						<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+						<th class="cnbh-separator">&nbsp;</th>
+						<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					</tr>
 				</thead>
 
 				<?php endif; ?>
@@ -530,10 +536,12 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 				<?php if ( $atts['footer'] ) : ?>
 
 				<tfoot>
-					<th>&nbsp;</th>
-					<th><?php _e( 'Open', 'connections_hours' ); ?></th>
-					<th class="cnbh-separator">&nbsp;</th>
-					<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					<tr>
+						<th>&nbsp;</th>
+						<th><?php _e( 'Open', 'connections_hours' ); ?></th>
+						<th class="cnbh-separator">&nbsp;</th>
+						<th><?php _e( 'Close', 'connections_hours' ); ?></th>
+					</tr>
 				</tfoot>
 
 				<?php endif; ?>

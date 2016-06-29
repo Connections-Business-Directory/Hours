@@ -2,9 +2,9 @@
 Contributors: shazahm1@hotmail.com
 Donate link: http://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
-Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 1.0.6
+Requires at least: 4.2
+Tested up to: 4.5
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ The business hours can also be optionally shown within the entry card in both th
 
 [Checkout the screenshots and video of this plugin in action.](http://connections-pro.com/add-on/hours/)
 
-Here are other great extensions that enhance your expirence with the Connections Business Directory:
+Here are other great extensions that enhance your experience with the Connections Business Directory:
 
 * [Toolbar](http://wordpress.org/plugins/connections-toolbar/)
 * [Login](http://wordpress.org/plugins/connections-business-directory-login/)
@@ -45,6 +45,12 @@ None yet....
 [Screenshots can be found here.](http://connections-pro.com/add-on/hours/)
 
 == Changelog ==
+
+= 1.0.7 06/29/2016 =
+* BUG: `<th>` tags should be within `<tr>` tags.
+* OTHER: Readme tweaks.
+* I18N: Add Dutch (Netherlands) translation.
+* DEV: Update .gitignore.
 
 = 1.0.6 05/05/2015 =
 * BUG: Add missing text domain to "Business Hours" so it is translatable.
