@@ -4,7 +4,7 @@ Donate link: http://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
 Requires at least: 4.2
 Tested up to: 4.5
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,7 @@ None yet....
 
 == Changelog ==
 
-= 1.0.6 06/29/2016 =
+= 1.0.7 06/29/2016 =
 * BUG: `<th>` tags should be within `<tr>` tags.
 * OTHER: Readme tweaks.
 * I18N: Add Dutch (Netherlands) translation.
