@@ -46,6 +46,12 @@ None yet....
 
 == Changelog ==
 
+= 1.0.6 06/29/2016 =
+* BUG: `<th>` tags should be within `<tr>` tags.
+* OTHER: Readme tweaks.
+* I18N: Add Dutch (Netherlands) translation.
+* DEV: Update .gitignore.
+
 = 1.0.6 05/05/2015 =
 * BUG: Add missing text domain to "Business Hours" so it is translatable.
 * BUG: Correct text domain in the widget.
