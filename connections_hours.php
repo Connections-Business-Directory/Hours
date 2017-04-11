@@ -355,6 +355,8 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 				<?php
 
+					if ( ( ! is_array( $value ) ) ) $value = array();
+
 					foreach ( self::getWeekdays() as $key => $day ) {
 
 						// If there are no periods saved for the day,
