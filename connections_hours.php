@@ -219,13 +219,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return apply_filters( 'cnbh_time_format', get_option('time_format') );
 		}
 
-		public static function formatTime( $value, $format = NULL ) {
+		public static function formatTime( $value, $to = NULL, $from = NULL ) {
 
-			$format = is_null( $format ) ? self::timeFormat() : $format;
+			$to   = is_null( $to ) ? self::timeFormat() : $to;
+			$from = is_null( $from ) ? self::timeFormat() : $from;
 
 			if ( strlen( $value ) > 0 ) {
 
-				return date( $format, strtotime( $value ) );
+				return cnDate::createFromFormat( $from, $value )->format( $to );
 
 			} else {
 
