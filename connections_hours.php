@@ -378,7 +378,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 											'after'    => '',
 											'return'   => TRUE,
 										),
-										self::formatTime( $data['open'] )
+										self::formatTime( $data['open'], NULL, 'H:i' )
 									);
 
 							$close = cnHTML::field(
@@ -392,7 +392,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 											'after'    => '',
 											'return'   => TRUE,
 										),
-										self::formatTime( $data['close'] )
+										self::formatTime( $data['close'], NULL, 'H:i' )
 									);
 
 							if ( $period == 0 ) {
