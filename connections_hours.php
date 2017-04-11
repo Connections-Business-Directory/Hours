@@ -192,19 +192,12 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		public static function dateTimePickerOptions() {
 
-			// Convert the PHP date/time format value to be
-			// jQuery UI DateTimePicker compliant.
-			$search  = array( 'G', 'H',  'h',  'g', 'i',  's',  'u', 'a',  'A' );
-			$replace = array( 'H', 'HH', 'hh', 'h', 'mm', 'ss', 'c', 'tt', 'TT' );
-
-			// $options['timeFormat'] = str_replace( $search, $replace, $format );
-
 			$options = array(
 				'currentText'   => __( 'Now', 'connections_hours' ),
 				'closeText'     => __( 'Done', 'connections_hours' ),
 				'amNames'       => array( __( 'AM', 'connections_hours' ), __( 'A', 'connections_hours' ) ),
 				'pmNames'       => array( __( 'PM', 'connections_hours' ), __( 'P', 'connections_hours' ) ),
-				'timeFormat'    => str_replace( $search, $replace, self::timeFormat() ),
+				'timeFormat'    => cnFormatting::dateFormatPHPTojQueryUI( self::timeFormat() ),
 				'timeSuffix'    => '',
 				'timeOnlyTitle' => __( 'Choose Time', 'connections_hours' ),
 				'timeText'      => __( 'Time', 'connections_hours' ),
