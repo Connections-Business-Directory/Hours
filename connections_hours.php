@@ -4,7 +4,7 @@
  * adding the business hours of operation and a widget to display
  * them.
  *
- * @package   Connections Business Hours
+ * @package   Connections Business Directory Open Hours
  * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
@@ -12,10 +12,10 @@
  * @copyright 2014 Steven A. Zahm
  *
  * @wordpress-plugin
- * Plugin Name:       Connections Business Hours
+ * Plugin Name:       Connections Business Directory Open Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.7
+ * Version:           1.0.8
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -82,7 +82,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.7' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.8' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -178,7 +178,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * Enqueues the CSS.
 		 *
 		 * NOTE: This will only be enqueued if Form is installed and active
-		 * because a CSS file registered by Form is listed as a dependancy
+		 * because a CSS file registered by Form is listed as a dependency
 		 * when registering 'cnbh-public'.
 		 *
 		 * @access private
@@ -192,19 +192,12 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 		public static function dateTimePickerOptions() {
 
-			// Convert the PHP date/time format value to be
-			// jQuery UI DateTimePicker compliant.
-			$search  = array( 'G', 'H',  'h',  'g', 'i',  's',  'u', 'a',  'A' );
-			$replace = array( 'H', 'HH', 'hh', 'h', 'mm', 'ss', 'c', 'tt', 'TT' );
-
-			// $options['timeFormat'] = str_replace( $search, $replace, $format );
-
 			$options = array(
 				'currentText'   => __( 'Now', 'connections_hours' ),
 				'closeText'     => __( 'Done', 'connections_hours' ),
 				'amNames'       => array( __( 'AM', 'connections_hours' ), __( 'A', 'connections_hours' ) ),
 				'pmNames'       => array( __( 'PM', 'connections_hours' ), __( 'P', 'connections_hours' ) ),
-				'timeFormat'    => str_replace( $search, $replace, self::timeFormat() ),
+				'timeFormat'    => cnFormatting::dateFormatPHPTojQueryUI( self::timeFormat() ),
 				'timeSuffix'    => '',
 				'timeOnlyTitle' => __( 'Choose Time', 'connections_hours' ),
 				'timeText'      => __( 'Time', 'connections_hours' ),
@@ -226,13 +219,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return apply_filters( 'cnbh_time_format', get_option('time_format') );
 		}
 
-		public static function formatTime( $value, $format = NULL ) {
+		public static function formatTime( $value, $to = NULL, $from = NULL ) {
 
-			$format = is_null( $format ) ? self::timeFormat() : $format;
+			$to   = is_null( $to ) ? self::timeFormat() : $to;
+			$from = is_null( $from ) ? self::timeFormat() : $from;
 
 			if ( strlen( $value ) > 0 ) {
 
-				return date( $format, strtotime( $value ) );
+				return cnDate::createFromFormat( $from, $value )->format( $to );
 
 			} else {
 
@@ -355,6 +349,8 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 				<?php
 
+					if ( ( ! is_array( $value ) ) ) $value = array();
+
 					foreach ( self::getWeekdays() as $key => $day ) {
 
 						// If there are no periods saved for the day,
@@ -382,7 +378,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 											'after'    => '',
 											'return'   => TRUE,
 										),
-										self::formatTime( $data['open'] )
+										self::formatTime( $data['open'], NULL, 'H:i' )
 									);
 
 							$close = cnHTML::field(
@@ -396,7 +392,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 											'after'    => '',
 											'return'   => TRUE,
 										),
-										self::formatTime( $data['close'] )
+										self::formatTime( $data['close'], NULL, 'H:i' )
 									);
 
 							if ( $period == 0 ) {

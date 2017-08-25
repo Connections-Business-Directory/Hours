@@ -38,7 +38,7 @@
 #business-hours input[type="text"].cn-timepicker.hasDatepicker {
 	background-color: #ffffff;
 	padding: 2px;
-	width: 17.5em;
+	max-width: 17.5em;
 }
 
 #business-hours table tr td p {
@@ -55,15 +55,15 @@
 	cursor:pointer;
 }
 
-/* The add/remove periond buttons. */
+/* The add/remove period buttons. */
 #business-hours .button {
 	border-radius: 50%;
 	display: inline-block;
 	font-size: 1.5em;
 	font-weight: 600;
 	height: 24px;
-	line-height: 1em;
-	padding: 0 5px;
+	line-height: 17px;
+	padding: 0 4px;
 	width: 24px;
 }
 

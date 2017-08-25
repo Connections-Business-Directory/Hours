@@ -199,9 +199,7 @@ class cnbhHoursWidget extends WP_Widget {
 	 * @access  private
 	 * @since  1.0
 	 * @param  array $args
-	 * @param  array $instance
-	 *
-	 * @return string
+	 * @param  array $option
 	 */
 	public function widget( $args, $option ) {
 
