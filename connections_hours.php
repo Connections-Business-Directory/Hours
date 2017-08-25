@@ -178,7 +178,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * Enqueues the CSS.
 		 *
 		 * NOTE: This will only be enqueued if Form is installed and active
-		 * because a CSS file registered by Form is listed as a dependancy
+		 * because a CSS file registered by Form is listed as a dependency
 		 * when registering 'cnbh-public'.
 		 *
 		 * @access private
