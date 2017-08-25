@@ -58,6 +58,16 @@ None yet....
 
 == Changelog ==
 
+= 1.0.8 08/25/2018 =
+* TWEAK: Refactor Connections_Business_Hours::dateTimePickerOptions() to utilize cnFormatting::dateFormatPHPTojQueryUI() to handle converting the PHP datetime format to the jQueryUI datetime format.
+* TWEAK: Refactor Connections_Business_Hours::formatTime() to utilize cnDate::createFromFormat() to handle the conversion of to/from date formats.
+* TWEAK: Update usages of Connections_Business_Hours::formatTime() to new signature.
+* TWEAK: CSS tweak.
+* BUG: PHP error notice fix, check for array value first.
+* I18N: Add German translation.
+* DEV: Correct code indent.
+* DEV: phpDoc correction.
+
 = 1.0.7 06/29/2016 =
 * BUG: `<th>` tags should be within `<tr>` tags.
 * OTHER: Readme tweaks.
