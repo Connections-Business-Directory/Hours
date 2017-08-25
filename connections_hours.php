@@ -4,7 +4,7 @@
  * adding the business hours of operation and a widget to display
  * them.
  *
- * @package   Connections Business Hours
+ * @package   Connections Business Directory Open Hours
  * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
