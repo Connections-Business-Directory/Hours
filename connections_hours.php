@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Directory Open Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.8
+ * Version:           1.0.9
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -82,7 +82,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.8' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.9' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -111,12 +111,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * Credit: Adapted from Ninja Forms / Easy Digital Downloads.
 		 *
 		 * @access private
-		 * @since 0.7.9
-		 * @uses apply_filters()
-		 * @uses get_locale()
-		 * @uses load_textdomain()
-		 * @uses load_plugin_textdomain()
-		 * @return (void)
+		 * @since  1.0
 		 */
 		public static function loadTextdomain() {
 
@@ -166,8 +161,8 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * @access private
 		 * @since  1.0
+		 *
 		 * @param  string $pageHook The current admin page hook.
-		 * @return void
 		 */
 		public static function adminStyles( $pageHook ) {
 
@@ -183,7 +178,6 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * @access private
 		 * @since  1.0
-		 * @return void
 		 */
 		public static function enqueueScripts() {
 
@@ -587,9 +581,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 								$period == 0 ? 'id="cnbh-day-' . absint( $key ) . '"' : '',
 								$period == 0 ? 'data-count="' . absint( count( $value[ $key ] ) - 1 ) . '"' : '',
 								$period == 0 ? esc_attr( $day ) : '&nbsp;',
-								self::formatTime( $time['open'] ),
+								self::formatTime( $time['open'], NULL, 'H:i' ),
 								esc_attr( $atts['open_close_separator'] ),
-								self::formatTime( $time['close'] )
+								self::formatTime( $time['close'], NULL, 'H:i' )
 								);
 
 							} elseif ( $atts['show_closed_period'] && $period > 0 ) {

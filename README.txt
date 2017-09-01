@@ -4,7 +4,7 @@ Donate link: https://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
 Requires at least: 4.4
 Tested up to: 4.8
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,7 +58,11 @@ None yet....
 
 == Changelog ==
 
-= 1.0.8 08/25/2018 =
+= 1.0.9 09/01/2017 =
+* BUG: n displaying the time on the frontend, supplied the convert from time format so it is properly displayed when converting from one format to another.
+* DEV: phpDoc corrections.
+
+= 1.0.8 08/25/2017 =
 * TWEAK: Refactor Connections_Business_Hours::dateTimePickerOptions() to utilize cnFormatting::dateFormatPHPTojQueryUI() to handle converting the PHP datetime format to the jQueryUI datetime format.
 * TWEAK: Refactor Connections_Business_Hours::formatTime() to utilize cnDate::createFromFormat() to handle the conversion of to/from date formats.
 * TWEAK: Update usages of Connections_Business_Hours::formatTime() to new signature.
