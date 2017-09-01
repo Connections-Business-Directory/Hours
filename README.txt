@@ -58,7 +58,11 @@ None yet....
 
 == Changelog ==
 
-= 1.0.8 08/25/2018 =
+= 1.0.9 09/01/2017 =
+* BUG: n displaying the time on the frontend, supplied the convert from time format so it is properly displayed when converting from one format to another.
+* DEV: phpDoc corrections.
+
+= 1.0.8 08/25/2017 =
 * TWEAK: Refactor Connections_Business_Hours::dateTimePickerOptions() to utilize cnFormatting::dateFormatPHPTojQueryUI() to handle converting the PHP datetime format to the jQueryUI datetime format.
 * TWEAK: Refactor Connections_Business_Hours::formatTime() to utilize cnDate::createFromFormat() to handle the conversion of to/from date formats.
 * TWEAK: Update usages of Connections_Business_Hours::formatTime() to new signature.
