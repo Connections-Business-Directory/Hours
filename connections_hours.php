@@ -581,9 +581,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 								$period == 0 ? 'id="cnbh-day-' . absint( $key ) . '"' : '',
 								$period == 0 ? 'data-count="' . absint( count( $value[ $key ] ) - 1 ) . '"' : '',
 								$period == 0 ? esc_attr( $day ) : '&nbsp;',
-								self::formatTime( $time['open'] ),
+								self::formatTime( $time['open'], NULL, 'H:i' ),
 								esc_attr( $atts['open_close_separator'] ),
-								self::formatTime( $time['close'] )
+								self::formatTime( $time['close'], NULL, 'H:i' )
 								);
 
 							} elseif ( $atts['show_closed_period'] && $period > 0 ) {
