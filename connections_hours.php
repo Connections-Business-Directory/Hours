@@ -111,12 +111,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * Credit: Adapted from Ninja Forms / Easy Digital Downloads.
 		 *
 		 * @access private
-		 * @since 0.7.9
-		 * @uses apply_filters()
-		 * @uses get_locale()
-		 * @uses load_textdomain()
-		 * @uses load_plugin_textdomain()
-		 * @return (void)
+		 * @since  1.0
 		 */
 		public static function loadTextdomain() {
 
@@ -166,8 +161,8 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * @access private
 		 * @since  1.0
+		 *
 		 * @param  string $pageHook The current admin page hook.
-		 * @return void
 		 */
 		public static function adminStyles( $pageHook ) {
 
@@ -183,7 +178,6 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * @access private
 		 * @since  1.0
-		 * @return void
 		 */
 		public static function enqueueScripts() {
 
