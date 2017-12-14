@@ -24,7 +24,7 @@ The business hours can also be optionally shown within the entry card in both th
 
 [Checkout the screenshots and video of this plugin in action.](https://connections-pro.com/add-on/hours/)
 
-Here are some other great **free extensions** (with more on the way) that enhance your experience with Connections Business Directory:
+Here are some great **free extensions** (with more on the way) that enhance your experience with Connections Business Directory:
 
 **Utility**
 
@@ -33,15 +33,30 @@ Here are some other great **free extensions** (with more on the way) that enhanc
 
 **Custom Fields**
 
+* [Local Time](https://wordpress.org/plugins/connections-business-directory-local-time/) :: Add the business local time.
+* [Facilities](https://wordpress.org/plugins/connections-business-directory-facilities/) :: Add the business facilities.
 * [Income Level](https://wordpress.org/plugins/connections-business-directory-income-levels/) :: Add an income level.
 * [Education Level](https://wordpress.org/plugins/connections-business-directory-education-levels/) :: Add an education level.
 * [Languages](https://wordpress.org/plugins/connections-business-directory-languages/) :: Add languages spoken.
-* [Local Time](https://wordpress.org/plugins/connections-business-directory-local-time/) :: Add business local time to the sidebar with a widget.
 * [Hobbies](https://wordpress.org/plugins/connections-business-directory-hobbies/) :: Add hobbies.
 
 **Misc**
 
 * [Face Detect](https://wordpress.org/plugins/connections-business-directory-face-detect/) :: Applies face detection before cropping an image.
+
+**[Premium Extensions](https://connections-pro.com/extensions/)**
+
+* [Authored](https://connections-pro.com/add-on/authored/) :: Displays a list of blog posts written by the entry on their profile page.
+* [Contact](https://connections-pro.com/add-on/contact/) :: Displays a contact form on the entry's profile page to allow your visitors to contact the entry without revealing their email address.
+* [CSV Import](https://connections-pro.com/add-on/csv-import/) :: Bulk import your data in to your directory.
+* [Custom Category Order](https://connections-pro.com/add-on/custom-category-order/) :: Order your categories exactly as you need them.
+* [Custom Entry Order](https://connections-pro.com/add-on/custom-entry-order/) :: Allows you to easily define the order that your business directory entries should be displayed.
+* [Enhanced Categories](https://connections-pro.com/add-on/enhanced-categories/) :: Adds many features to the categories.
+* [Form](https://connections-pro.com/add-on/form/) :: Allow site visitor to submit entries to your directory. Also provides frontend editing support.
+* [Link](https://connections-pro.com/add-on/link/) :: Links a WordPress user to an entry so that user can maintain their entry with or without moderation.
+* [ROT13 Encryption](https://connections-pro.com/add-on/rot13-email-encryption/) :: Protect email addresses from being harvested from your business directory by spam bots.
+* [SiteShot](https://connections-pro.com/add-on/siteshot/) :: Show a screen capture of the entry's website.
+* [Widget Pack](https://connections-pro.com/add-on/widget-pack/) :: A set of feature rich, versatile and highly configurable widgets that can be used to enhance your directory.
 
 
 == Installation ==
