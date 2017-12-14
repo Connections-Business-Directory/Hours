@@ -616,7 +616,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 				foreach ( $value[ $key ] as $period => $time ) {
 
-					if ( date( 'w', current_time( 'timestamp' ) ) == $key && self::isOpen( $time['open'], $time['close'] ) ) return TRUE;
+					if ( date( 'w', current_time( 'timestamp' ) ) == $key &&
+					     self::openPeriod( $time ) &&
+					     self::isOpen( $time['open'], $time['close'] )
+					) {
+
+						return TRUE;
+					}
 
 				}
 
