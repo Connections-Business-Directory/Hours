@@ -472,8 +472,6 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * @param  string $id    The field id.
 		 * @param  array  $value The business hours data.
 		 * @param  array  $atts  The shortcode atts array passed from the calling action.
-		 *
-		 * @return string
 		 */
 		public static function block( $id, $value, $object = NULL, $atts ) {
 			global $wp_locale;
