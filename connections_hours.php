@@ -9,13 +9,13 @@
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
  * @link      http://connections-pro.com
- * @copyright 2014 Steven A. Zahm
+ * @copyright 2017 Steven A. Zahm
  *
  * @wordpress-plugin
  * Plugin Name:       Connections Business Directory Open Hours
  * Plugin URI:        http://connections-pro.com
  * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.9
+ * Version:           1.0.10
  * Author:            Steven A. Zahm
  * Author URI:        http://connections-pro.com
  * License:           GPL-2.0+
@@ -82,7 +82,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		private static function defineConstants() {
 
-			define( 'CNBH_CURRENT_VERSION', '1.0.9' );
+			define( 'CNBH_CURRENT_VERSION', '1.0.10' );
 			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
 			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
 			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
@@ -472,8 +472,6 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 * @param  string $id    The field id.
 		 * @param  array  $value The business hours data.
 		 * @param  array  $atts  The shortcode atts array passed from the calling action.
-		 *
-		 * @return string
 		 */
 		public static function block( $id, $value, $object = NULL, $atts ) {
 			global $wp_locale;
@@ -618,7 +616,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 				foreach ( $value[ $key ] as $period => $time ) {
 
-					if ( date( 'w', current_time( 'timestamp' ) ) == $key && self::isOpen( $time['open'], $time['close'] ) ) return TRUE;
+					if ( date( 'w', current_time( 'timestamp' ) ) == $key &&
+					     self::openPeriod( $time ) &&
+					     self::isOpen( $time['open'], $time['close'] )
+					) {
+
+						return TRUE;
+					}
 
 				}
 
