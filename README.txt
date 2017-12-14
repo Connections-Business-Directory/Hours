@@ -74,6 +74,9 @@ None yet....
 
 == Changelog ==
 
+= 1.0.10 12/14/2017 =
+* BUG: Corrected PHP 7.1 warning, "A non-numeric value encountered".
+
 = 1.0.9 09/01/2017 =
 * BUG: n displaying the time on the frontend, supplied the convert from time format so it is properly displayed when converting from one format to another.
 * DEV: phpDoc corrections.
