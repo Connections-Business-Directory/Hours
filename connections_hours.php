@@ -364,7 +364,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 							$open = cnHTML::field(
 										array(
 											'type'     => 'text',
-											'class'    => 'timepicker',
+											'class'    => array( 'timepicker', 'clearable' ),
 											'id'       => $field['id'] . '[' . $key . '][' . $period . '][open]',
 											'required' => FALSE,
 											'label'    => '',
@@ -378,7 +378,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 							$close = cnHTML::field(
 										array(
 											'type'     => 'text',
-											'class'    => 'timepicker',
+											'class'    => array( 'timepicker', 'clearable' ),
 											'id'       => $field['id'] . '[' . $key . '][' . $period . '][close]',
 											'required' => FALSE,
 											'label'    => '',
