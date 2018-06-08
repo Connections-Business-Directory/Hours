@@ -120,13 +120,29 @@
 	$('.cn-timepicker').timepicker(	cnbhDateTimePickerOptions ).prop( 'readonly', true );
 
 	// @see http://stackoverflow.com/a/6258628
-	function tog(v){ return v ? 'addClass' : 'removeClass'; }
+	// function tog(v){ return v ? 'addClass' : 'removeClass'; }
+	//
+	// $(document).on('mousemove', '.x', function( e ){
+	// 	$(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
+	// }).on('click', '.onX', function(){
+	// 	$(this).removeClass('x onX').val('');
+	// });
 
-	$(document).on('mousemove', '.x', function( e ){
+	/**
+	 * Clearable text inputs
+	 */
+	function tog(v){return v?'addClass':'removeClass';}
+	$(document).on('input', '.cn-clearable', function(){
+		$(this)[tog(this.value)]('x');
+	}).on('mousemove', '.x', function( e ){
 		$(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
-	}).on('click', '.onX', function(){
-		$(this).removeClass('x onX').val('');
+	}).on('touchstart click', '.onX', function( ev ){
+		ev.preventDefault();
+		$(this).removeClass('x onX').val('').change();
 	});
+
+	$('.cn-timepicker.cn-clearable').trigger("input");
+	// Uncomment the line above if you pre-fill values from LS or server
 
 	// Counter Functions Credit:
 	// http://stackoverflow.com/a/5656660

@@ -2,10 +2,10 @@
 Contributors: shazahm1@hotmail.com
 Donate link: https://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
-Requires at least: 4.4
+Requires at least: 4.5.3
 Tested up to: 4.9
 Requires PHP: 5.3
-Stable tag: 1.0.10
+Stable tag: 1.0.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,10 @@ None yet....
 
 == Changelog ==
 
+= 1.0.11 06/08/2018 =
+* TWEAK: Only save open hours data array if open hours have been added.
+* BUG: Fix ability to clear an open/close time period input field.
+
 = 1.0.10 12/14/2017 =
 * BUG: Corrected PHP 7.1 warning, "A non-numeric value encountered".
 
@@ -131,3 +135,6 @@ None yet....
 
 = 1.0 =
 Initial release.
+
+= 1.0.11 =
+It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP >= 5.3. PHP version >= 7.1 recommended.
