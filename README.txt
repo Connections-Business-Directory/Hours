@@ -74,6 +74,10 @@ None yet....
 
 == Changelog ==
 
+= 1.0.11 06/08/2018 =
+* TWEAK: Only save open hours data array if open hours have been added.
+* BUG: Fix ability to clear an open/close time period input field.
+
 = 1.0.10 12/14/2017 =
 * BUG: Corrected PHP 7.1 warning, "A non-numeric value encountered".
 
@@ -131,3 +135,6 @@ None yet....
 
 = 1.0 =
 Initial release.
+
+= 1.0.11 =
+It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP >= 5.3. PHP version >= 7.1 recommended.
