@@ -443,20 +443,32 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 */
 		public static function sanitize( $value ) {
 
+			$hasOpenHours = FALSE;
+
 			if ( empty( $value ) ) return $value;
 
 			foreach ( $value as $key => $day ) {
 
 				foreach ( $day as $period => $time ) {
 
-					// Save all time values in 24hr format.
-					$time['open']  = self::formatTime( $time['open'], 'H:i' );
-					$time['close'] = self::formatTime( $time['close'], 'H:i' );
+					if ( 0 < strlen( $time['open'] ) || 0 < strlen( $time['open'] ) ) {
 
-					$value[ $key ][ $period ]['open']  = cnSanitize::string( 'text', $time['open'] );
-					$value[ $key ][ $period ]['close'] = cnSanitize::string( 'text', $time['close'] );
+						// Save all time values in 24hr format.
+						$time['open']  = self::formatTime( $time['open'], 'H:i' );
+						$time['close'] = self::formatTime( $time['close'], 'H:i' );
+
+						$value[ $key ][ $period ]['open']  = cnSanitize::string( 'text', $time['open'] );
+						$value[ $key ][ $period ]['close'] = cnSanitize::string( 'text', $time['close'] );
+
+						$hasOpenHours = TRUE;
+					}
 
 				}
+			}
+
+			if ( ! $hasOpenHours ) {
+
+				return NULL;
 			}
 
 			return $value;
