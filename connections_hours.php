@@ -4,20 +4,20 @@
  * adding the business hours of operation and a widget to display
  * them.
  *
- * @package   Connections Business Directory Open Hours
+ * @package   Connections Business Directory Extension - Open Hours
  * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
- * @link      http://connections-pro.com
- * @copyright 2017 Steven A. Zahm
+ * @link      https://connections-pro.com
+ * @copyright 2018 Steven A. Zahm
  *
  * @wordpress-plugin
- * Plugin Name:       Connections Business Directory Open Hours
- * Plugin URI:        http://connections-pro.com
- * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
  * Version:           1.0.10
+ * Plugin Name:       Connections Business Directory Extension - Open Hours
+ * Plugin URI:        https://connections-pro.com/add-on/hours/
+ * Description:       An extension for the Connections plugin which allows you to add the business hours of operation to an entry and a widget to display them.
  * Author:            Steven A. Zahm
- * Author URI:        http://connections-pro.com
+ * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       connections_hours
