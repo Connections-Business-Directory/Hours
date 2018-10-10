@@ -231,7 +231,12 @@ class cnbhHoursWidget extends WP_Widget {
 			// If there is no meta; bail.
 			if ( empty( $metadata ) ) return;
 
-			// Extract $before_widget, $after_widget, $before_title and $after_title.
+			/**
+			 * @var $before_widget
+			 * @var $before_title
+			 * @var $after_title
+			 * @var $after_widget
+			 */
 			extract( $args );
 
 			// Setup the default widget options if they were not set when they were added to the sidebar;
