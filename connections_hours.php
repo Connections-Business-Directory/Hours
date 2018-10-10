@@ -94,16 +94,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			require_once( CNBH_PATH . 'includes/class.widgets.php' );
 		}
 
+		//public static function activate() {}
 
-		public static function activate() {
-
-
-		}
-
-		public static function deactivate() {
-
-
-		}
+		//public static function deactivate() {}
 
 		/**
 		 * Load the plugin translation.
