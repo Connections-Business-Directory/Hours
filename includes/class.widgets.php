@@ -29,6 +29,16 @@ class cnbhHoursWidget extends WP_Widget {
 	}
 
 	/**
+	 * Registers the widget with the WordPress Widget API.
+	 *
+	 * @since 1.1
+	 */
+	public static function register() {
+
+		register_widget( __CLASS__ );
+	}
+
+	/**
 	 * Logic for handling updates from the widget form.
 	 *
 	 * @access  private
