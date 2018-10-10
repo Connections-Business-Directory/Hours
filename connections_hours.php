@@ -150,9 +150,10 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		}
 
 		/**
+		 * Callback for the `cn_admin_enqueue_edit_styles` action.
+		 *
 		 * Enqueues the CSS on the Connections admin pages only.
 		 *
-		 * @access private
 		 * @since  1.0
 		 *
 		 * @param  string $pageHook The current admin page hook.
@@ -163,13 +164,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		}
 
 		/**
+		 * Callback for the `wp_enqueue_scripts` action.
+		 *
 		 * Enqueues the CSS.
 		 *
 		 * NOTE: This will only be enqueued if Form is installed and active
 		 * because a CSS file registered by Form is listed as a dependency
 		 * when registering 'cnbh-public'.
 		 *
-		 * @access private
 		 * @since  1.0
 		 */
 		public static function enqueueScripts() {
@@ -177,6 +179,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			wp_enqueue_style( 'cnbh-public' );
 		}
 
+		/**
+		 * Returns the date picker options.
+		 *
+		 * @since 1.0
+		 *
+		 * @return array
+		 */
 		public static function dateTimePickerOptions() {
 
 			$options = array(
@@ -201,11 +210,29 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return apply_filters( 'cnbh_timepicker_options', $options );
 		}
 
+		/**
+		 * Returns the time format.
+		 *
+		 * @since 1.0
+		 *
+		 * @return string
+		 */
 		public static function timeFormat() {
 
 			return apply_filters( 'cnbh_time_format', get_option('time_format') );
 		}
 
+		/**
+		 * Format a time supplied as string to a format from a format.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $value
+		 * @param null   $to
+		 * @param null   $from
+		 *
+		 * @return string
+		 */
 		public static function formatTime( $value, $to = NULL, $from = NULL ) {
 
 			$to   = is_null( $to ) ? self::timeFormat() : $to;
@@ -221,6 +248,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			}
 		}
 
+		/**
+		 * Return the weekdays with teh start day as defined in the WP General Settings.
+		 *
+		 * @since 1.0
+		 *
+		 * @return array
+		 */
 		public static function getWeekdays() {
 			global $wp_locale;
 
@@ -242,6 +276,17 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $weekday;
 		}
 
+		/**
+		 * Callback for the `cn_content_blocks` filter.
+		 *
+		 * Add the Business Open Hours as an option to display in the Content Block settings.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $blocks
+		 *
+		 * @return array
+		 */
 		public static function settingsOption( $blocks ) {
 
 			$blocks['business_hours'] = __( 'Business Hours', 'connections_hours' );
@@ -249,6 +294,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $blocks;
 		}
 
+		/**
+		 * Callback for the `cn_metabox` action.
+		 *
+		 * Register the business open hours metabox.
+		 *
+		 * @since 1.0
+		 */
 		public static function registerMetabox() {
 
 			$atts = array(
@@ -267,6 +319,16 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			cnMetaboxAPI::add( $atts );
 		}
 
+		/**
+		 * Callback for the `cn_meta_field-business_hours` action.
+		 *
+		 * Display the business open hours fields within the registered metabox.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $field
+		 * @param array $value
+		 */
 		public static function field( $field, $value ) {
 
 			?>
@@ -428,9 +490,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Sanitize the times as a text input using the cnSanitize class.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array $value   The opening/closing hours.
+		 * @since 1.0
+		 *
+		 * @param array $value The opening/closing hours.
 		 *
 		 * @return array
 		 */
@@ -472,11 +534,11 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * Called by the cn_meta_output_field-cnbh action in cnOutput->getMetaBlock().
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  string $id    The field id.
-		 * @param  array  $value The business hours data.
-		 * @param  array  $atts  The shortcode atts array passed from the calling action.
+		 * @since 1.0
+		 *
+		 * @param string $id    The field id.
+		 * @param array  $value The business hours data.
+		 * @param array  $atts  The shortcode atts array passed from the calling action.
 		 */
 		public static function block( $id, $value, $object = NULL, $atts ) {
 			global $wp_locale;
@@ -615,6 +677,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Whether or not the business is currently open or not.
+		 *
+		 * @param array $value
+		 *
+		 * @return bool
+		 */
 		public static function openStatus( $value ) {
 
 			foreach ( self::getWeekdays() as $key => $day ) {
@@ -639,9 +708,10 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Whether or not there are any open hours during the week.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array  $days
+		 * @since 1.0
+		 *
+		 * @param array $days
+		 *
 		 * @return boolean
 		 */
 		public static function hasOpenHours( $days ) {
@@ -657,9 +727,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Whether or not the day has any open periods.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array $day
+		 * @since 1.0
+		 *
+		 * @param array $day
 		 *
 		 * @return bool
 		 */
@@ -676,9 +746,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Whether or not the period is open.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array $period
+		 * @since 1.0
+		 *
+		 * @param array $period
 		 *
 		 * @return bool
 		 */
@@ -691,7 +761,19 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return FALSE;
 		}
 
-		// http://stackoverflow.com/a/17145145
+		/**
+		 * Whether or not the business is open.
+		 *
+		 * @link http://stackoverflow.com/a/17145145
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $t1 Time open.
+		 * @param string $t2 Time close.
+		 * @param null   $tn Time now.
+		 *
+		 * @return bool
+		 */
 		private static function isOpen( $t1, $t2, $tn = NULL ) {
 
 			$tn = is_null( $tn ) ? date( 'H:i', current_time( 'timestamp' ) ) : self::formatTime( $tn, 'H:i' );
