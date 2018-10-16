@@ -154,9 +154,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * Enqueues the CSS on the Connections admin pages only.
 		 *
-		 * @since  1.0
+		 * @since 1.0
 		 *
-		 * @param  string $pageHook The current admin page hook.
+		 * @param string $pageHook The current admin page hook.
 		 */
 		public static function adminStyles( $pageHook ) {
 
