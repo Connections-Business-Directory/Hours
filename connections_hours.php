@@ -798,10 +798,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 	/**
 	 * Start up the extension.
 	 *
-	 * @access public
 	 * @since 1.0
 	 *
-	 * @return mixed (object)|(bool)
+	 * @return Connections_Business_Hours|false
 	 */
 	function Connections_Business_Hours() {
 
