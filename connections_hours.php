@@ -12,10 +12,10 @@
  * @copyright 2018 Steven A. Zahm
  *
  * @wordpress-plugin
- * Version:           1.0.10
  * Plugin Name:       Connections Business Directory Extension - Open Hours
  * Plugin URI:        https://connections-pro.com/add-on/hours/
  * Description:       An extension for the Connections plugin which allows you to add the business hours of operation to an entry and a widget to display them.
+ * Version:           1.1
  * Author:            Steven A. Zahm
  * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
