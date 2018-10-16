@@ -4,20 +4,20 @@
  * adding the business hours of operation and a widget to display
  * them.
  *
- * @package   Connections Business Directory Open Hours
+ * @package   Connections Business Directory Extension - Open Hours
  * @category  Extension
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
- * @link      http://connections-pro.com
- * @copyright 2017 Steven A. Zahm
+ * @link      https://connections-pro.com
+ * @copyright 2018 Steven A. Zahm
  *
  * @wordpress-plugin
- * Plugin Name:       Connections Business Directory Open Hours
- * Plugin URI:        http://connections-pro.com
- * Description:       An Extension for the Connections plugin which adds a metabox for adding the business hours of operation and a widget to display them.
- * Version:           1.0.10
+ * Plugin Name:       Connections Business Directory Extension - Open Hours
+ * Plugin URI:        https://connections-pro.com/add-on/hours/
+ * Description:       An extension for the Connections plugin which allows you to add the business hours of operation to an entry and a widget to display them.
+ * Version:           1.1
  * Author:            Steven A. Zahm
- * Author URI:        http://connections-pro.com
+ * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       connections_hours
@@ -33,14 +33,102 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 	class Connections_Business_Hours {
 
-		public function __construct() {
+		const VERSION = '1.1';
 
-			self::defineConstants();
-			self::loadDependencies();
+		/**
+		 * Stores the instance of this class.
+		 *
+		 * @since 1.1
+		 *
+		 * @var Connections_Business_Hours
+		 */
+		private static $instance;
 
-			// This should run on the `plugins_loaded` action hook. Since the extension loads on the
-			// `plugins_loaded action hook, call immediately.
-			self::loadTextdomain();
+		/**
+		 * @var string The absolute path this this file.
+		 *
+		 * @since 1.1
+		 */
+		private $file = '';
+
+		/**
+		 * @var string The URL to the plugin's folder.
+		 *
+		 * @since 1.1
+		 */
+		private $url = '';
+
+		/**
+		 * @var string The absolute path to this plugin's folder.
+		 *
+		 * @since 1.1
+		 */
+		private $path = '';
+
+		/**
+		 * @var string The basename of the plugin.
+		 *
+		 * @since 1.1
+		 */
+		private $basename = '';
+
+		/**
+		 * Connections_Business_Hours constructor.
+		 */
+		public function __construct() { /* Do nothing here */ }
+
+		/**
+		 * @since 1.1
+		 *
+		 * @return Connections_Business_Hours
+		 */
+		public static function instance() {
+
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Connections_Business_Hours ) ) {
+
+				self::$instance = $self = new self;
+
+				$self->file     = __FILE__;
+				$self->url      = plugin_dir_url( $self->file );
+				$self->path     = plugin_dir_path( $self->file );
+				$self->basename = plugin_basename( $self->file );
+
+				/**
+				 * This should run on the `plugins_loaded` action hook. Since the extension loads on the
+				 * `plugins_loaded` action hook, load immediately.
+				 */
+				cnText_Domain::register(
+					'connections_hours',
+					$self->basename,
+					'load'
+				);
+
+				self::loadDependencies();
+				self::hooks();
+			}
+
+			return self::$instance;
+		}
+
+		/**
+		 * @since 1.1
+		 *
+		 * @return string
+		 */
+		public function getBaseURL() {
+
+			return $this->url;
+		}
+
+		private static function loadDependencies() {
+
+			require_once( 'includes/class.widgets.php' );
+		}
+
+		/**
+		 * @since 1.1
+		 */
+		private static function hooks() {
 
 			// Register CSS and JavaScript.
 			add_action( 'init', array( __CLASS__ , 'registerScripts' ) );
@@ -70,74 +158,20 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			add_action( 'cn_output_meta_field-business_hours', array( __CLASS__, 'block' ), 10, 4 );
 
 			// Register the widget.
-			add_action( 'widgets_init', create_function( '', 'register_widget( "cnbhHoursWidget" );' ) );
+			add_action( 'widgets_init', array( 'cnbhHoursWidget', 'register' ) );
 		}
 
 		/**
-		 * Define the constants.
+		 * Callback for the `init` action.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @return void
+		 * Register the CSS and JS files.
+		 *
+		 * @since 1.0
 		 */
-		private static function defineConstants() {
-
-			define( 'CNBH_CURRENT_VERSION', '1.0.10' );
-			define( 'CNBH_DIR_NAME', plugin_basename( dirname( __FILE__ ) ) );
-			define( 'CNBH_BASE_NAME', plugin_basename( __FILE__ ) );
-			define( 'CNBH_PATH', plugin_dir_path( __FILE__ ) );
-			define( 'CNBH_URL', plugin_dir_url( __FILE__ ) );
-		}
-
-		private static function loadDependencies() {
-
-			require_once( CNBH_PATH . 'includes/class.widgets.php' );
-		}
-
-
-		public static function activate() {
-
-
-		}
-
-		public static function deactivate() {
-
-
-		}
-
-		/**
-		 * Load the plugin translation.
-		 *
-		 * Credit: Adapted from Ninja Forms / Easy Digital Downloads.
-		 *
-		 * @access private
-		 * @since  1.0
-		 */
-		public static function loadTextdomain() {
-
-			// Plugin's unique textdomain string.
-			$textdomain = 'connections_hours';
-
-			// Filter for the plugin languages folder.
-			$languagesDirectory = apply_filters( 'connections_hours_lang_dir', CNBH_DIR_NAME . '/languages/' );
-
-			// The 'plugin_locale' filter is also used by default in load_plugin_textdomain().
-			$locale = apply_filters( 'plugin_locale', get_locale(), $textdomain );
-
-			// Filter for WordPress languages directory.
-			$wpLanguagesDirectory = apply_filters(
-				'connections_hours_wp_lang_dir',
-				WP_LANG_DIR . '/connections-hours/' . sprintf( '%1$s-%2$s.mo', $textdomain, $locale )
-			);
-
-			// Translations: First, look in WordPress' "languages" folder = custom & update-secure!
-			load_textdomain( $textdomain, $wpLanguagesDirectory );
-
-			// Translations: Secondly, look in plugin's "languages" folder = default.
-			load_plugin_textdomain( $textdomain, FALSE, $languagesDirectory );
-		}
-
 		public static function registerScripts() {
+
+			$url = Connections_Business_Hours()->getBaseURL();
+			$url = cnURL::makeProtocolRelative( $url );
 
 			// If SCRIPT_DEBUG is set and TRUE load the non-minified JS files, otherwise, load the minified files.
 			$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
@@ -145,24 +179,24 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			$requiredCSS = class_exists( 'Connections_Form' ) ? array( 'cn-public', 'cn-form-public' ) : array( 'cn-public' );
 
 			// Register CSS.
-			wp_register_style( 'cnbh-admin' , CNBH_URL . "assets/css/cnbh-admin$min.css", array( 'cn-admin', 'cn-admin-jquery-ui' ) , CNBH_CURRENT_VERSION );
-			wp_register_style( 'cnbh-public', CNBH_URL . "assets/css/cnbh-public$min.css", $requiredCSS, CNBH_CURRENT_VERSION );
+			wp_register_style( 'cnbh-admin' , "{$url}assets/css/cnbh-admin$min.css", array( 'cn-admin', 'cn-admin-jquery-ui' ) , self::VERSION );
+			wp_register_style( 'cnbh-public', "{$url}assets/css/cnbh-public$min.css", $requiredCSS, self::VERSION );
 
 			// Register JavaScript.
-			wp_register_script( 'jquery-timepicker' , CNBH_URL . "assets/js/jquery-ui-timepicker-addon$min.js", array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
-			wp_register_script( 'cnbh-ui-js' , CNBH_URL . "assets/js/cnbh-common$min.js", array( 'jquery-timepicker' ) , CNBH_CURRENT_VERSION, true );
+			wp_register_script( 'jquery-timepicker' , "{$url}assets/js/jquery-ui-timepicker-addon$min.js", array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-slider' ) , '1.4.3' );
+			wp_register_script( 'cnbh-ui-js' , "{$url}assets/js/cnbh-common$min.js", array( 'jquery-timepicker' ) , self::VERSION, true );
 
 			wp_localize_script( 'cnbh-ui-js', 'cnbhDateTimePickerOptions', Connections_Business_Hours::dateTimePickerOptions() );
-
 		}
 
 		/**
+		 * Callback for the `cn_admin_enqueue_edit_styles` action.
+		 *
 		 * Enqueues the CSS on the Connections admin pages only.
 		 *
-		 * @access private
-		 * @since  1.0
+		 * @since 1.0
 		 *
-		 * @param  string $pageHook The current admin page hook.
+		 * @param string $pageHook The current admin page hook.
 		 */
 		public static function adminStyles( $pageHook ) {
 
@@ -170,13 +204,14 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		}
 
 		/**
+		 * Callback for the `wp_enqueue_scripts` action.
+		 *
 		 * Enqueues the CSS.
 		 *
 		 * NOTE: This will only be enqueued if Form is installed and active
 		 * because a CSS file registered by Form is listed as a dependency
 		 * when registering 'cnbh-public'.
 		 *
-		 * @access private
 		 * @since  1.0
 		 */
 		public static function enqueueScripts() {
@@ -184,6 +219,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			wp_enqueue_style( 'cnbh-public' );
 		}
 
+		/**
+		 * Returns the date picker options.
+		 *
+		 * @since 1.0
+		 *
+		 * @return array
+		 */
 		public static function dateTimePickerOptions() {
 
 			$options = array(
@@ -208,11 +250,29 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return apply_filters( 'cnbh_timepicker_options', $options );
 		}
 
+		/**
+		 * Returns the time format.
+		 *
+		 * @since 1.0
+		 *
+		 * @return string
+		 */
 		public static function timeFormat() {
 
 			return apply_filters( 'cnbh_time_format', get_option('time_format') );
 		}
 
+		/**
+		 * Format a time supplied as string to a format from a format.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $value
+		 * @param null   $to
+		 * @param null   $from
+		 *
+		 * @return string
+		 */
 		public static function formatTime( $value, $to = NULL, $from = NULL ) {
 
 			$to   = is_null( $to ) ? self::timeFormat() : $to;
@@ -228,6 +288,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			}
 		}
 
+		/**
+		 * Return the weekdays with teh start day as defined in the WP General Settings.
+		 *
+		 * @since 1.0
+		 *
+		 * @return array
+		 */
 		public static function getWeekdays() {
 			global $wp_locale;
 
@@ -249,6 +316,17 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $weekday;
 		}
 
+		/**
+		 * Callback for the `cn_content_blocks` filter.
+		 *
+		 * Add the Business Open Hours as an option to display in the Content Block settings.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $blocks
+		 *
+		 * @return array
+		 */
 		public static function settingsOption( $blocks ) {
 
 			$blocks['business_hours'] = __( 'Business Hours', 'connections_hours' );
@@ -256,6 +334,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return $blocks;
 		}
 
+		/**
+		 * Callback for the `cn_metabox` action.
+		 *
+		 * Register the business open hours metabox.
+		 *
+		 * @since 1.0
+		 */
 		public static function registerMetabox() {
 
 			$atts = array(
@@ -274,6 +359,16 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			cnMetaboxAPI::add( $atts );
 		}
 
+		/**
+		 * Callback for the `cn_meta_field-business_hours` action.
+		 *
+		 * Display the business open hours fields within the registered metabox.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $field
+		 * @param array $value
+		 */
 		public static function field( $field, $value ) {
 
 			?>
@@ -435,9 +530,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Sanitize the times as a text input using the cnSanitize class.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array $value   The opening/closing hours.
+		 * @since 1.0
+		 *
+		 * @param array $value The opening/closing hours.
 		 *
 		 * @return array
 		 */
@@ -479,11 +574,11 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		 *
 		 * Called by the cn_meta_output_field-cnbh action in cnOutput->getMetaBlock().
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  string $id    The field id.
-		 * @param  array  $value The business hours data.
-		 * @param  array  $atts  The shortcode atts array passed from the calling action.
+		 * @since 1.0
+		 *
+		 * @param string $id    The field id.
+		 * @param array  $value The business hours data.
+		 * @param array  $atts  The shortcode atts array passed from the calling action.
 		 */
 		public static function block( $id, $value, $object = NULL, $atts ) {
 			global $wp_locale;
@@ -622,6 +717,13 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Whether or not the business is currently open or not.
+		 *
+		 * @param array $value
+		 *
+		 * @return bool
+		 */
 		public static function openStatus( $value ) {
 
 			foreach ( self::getWeekdays() as $key => $day ) {
@@ -646,9 +748,10 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Whether or not there are any open hours during the week.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array  $days
+		 * @since 1.0
+		 *
+		 * @param array $days
+		 *
 		 * @return boolean
 		 */
 		public static function hasOpenHours( $days ) {
@@ -664,9 +767,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Whether or not the day has any open periods.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array $day
+		 * @since 1.0
+		 *
+		 * @param array $day
 		 *
 		 * @return bool
 		 */
@@ -683,9 +786,9 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		/**
 		 * Whether or not the period is open.
 		 *
-		 * @access  private
-		 * @since  1.0
-		 * @param  array $period
+		 * @since 1.0
+		 *
+		 * @param array $period
 		 *
 		 * @return bool
 		 */
@@ -698,7 +801,19 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 			return FALSE;
 		}
 
-		// http://stackoverflow.com/a/17145145
+		/**
+		 * Whether or not the business is open.
+		 *
+		 * @link http://stackoverflow.com/a/17145145
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $t1 Time open.
+		 * @param string $t2 Time close.
+		 * @param null   $tn Time now.
+		 *
+		 * @return bool
+		 */
 		private static function isOpen( $t1, $t2, $tn = NULL ) {
 
 			$tn = is_null( $tn ) ? date( 'H:i', current_time( 'timestamp' ) ) : self::formatTime( $tn, 'H:i' );
@@ -723,16 +838,15 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 	/**
 	 * Start up the extension.
 	 *
-	 * @access public
 	 * @since 1.0
 	 *
-	 * @return mixed (object)|(bool)
+	 * @return Connections_Business_Hours|false
 	 */
 	function Connections_Business_Hours() {
 
 			if ( class_exists('connectionsLoad') ) {
 
-					return new Connections_Business_Hours();
+					return Connections_Business_Hours::instance();
 
 			} else {
 

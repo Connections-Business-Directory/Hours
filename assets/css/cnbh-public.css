@@ -179,3 +179,8 @@ p.cnbh-status-open {
 	color: green;
 	font-weight: bold;
 }
+
+/* This needs to have `0` margin otherwise they will not align with sliders. */
+.ui-timepicker-div dl dt {
+	margin: 0;
+}

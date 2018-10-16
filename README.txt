@@ -4,8 +4,8 @@ Donate link: https://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
 Requires at least: 4.5.3
 Tested up to: 4.9
-Requires PHP: 5.3
-Stable tag: 1.0.11
+Requires PHP: 5.4
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,15 @@ None yet....
 
 == Changelog ==
 
+= 1.1 10/16/2018 =
+* TWEAK: Remove use of `create_function()` to register the widget.
+* TWEAK: Restructure code to more closely match the addons so it is more consistent.
+* TWEAK: Minor tweak to CSS to help make sure the time sliders are aligned with their labels.
+* OTHER: Plugin header updates.
+* OTHER: Remove extra whitespace and comment out unused methods.
+* OTHER: Bump minimum required PHP version to match core.
+* DEV: phpDoc additions and corrections.
+
 = 1.0.11 06/08/2018 =
 * TWEAK: Only save open hours data array if open hours have been added.
 * BUG: Fix ability to clear an open/close time period input field.
@@ -137,4 +146,7 @@ None yet....
 Initial release.
 
 = 1.0.11 =
-It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP >= 5.3. PHP version >= 7.1 recommended.
+It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP >= 5.3 PHP version >= 7.1 recommended.
+
+= 1.1 =
+It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP >= 5.4 PHP version >= 7.1 recommended.
