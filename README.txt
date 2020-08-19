@@ -74,6 +74,15 @@ None yet....
 
 == Changelog ==
 
+= 1.2 08/19/2020 =
+* TWEAK: Add a few additional styles for the add/remove period buttons to help prevent themes/plugins from breaking their display.
+* OTHER: Bump copyright year.
+* OTHER: Bump "Tested up to:" to version 5.5.
+* OTHER: Bump "Requires PHP:" to version 5.6.20.
+* OTHER: Bump "Requires at least:" to version 5.0.
+* OTHER: Update URL from http to https.
+* OTHER: Update minified files.
+
 = 1.1 10/16/2018 =
 * TWEAK: Remove use of `create_function()` to register the widget.
 * TWEAK: Restructure code to more closely match the addons so it is more consistent.
@@ -150,3 +159,6 @@ It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP
 
 = 1.1 =
 It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP >= 5.4 PHP version >= 7.1 recommended.
+
+= 1.0.6 =
+It is recommended to backup before updating. Requires WordPress >= 5.0 and PHP >= 5.6.20 PHP version >= 7.2 recommended.
