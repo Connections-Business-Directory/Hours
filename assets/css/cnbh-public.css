@@ -64,7 +64,7 @@ add:
 	width: auto;
 }
 
-/* The add/remove periond buttons. */
+/* The add/remove period buttons. */
 #cn-metabox-business-hours .button {
 	background: #f7f7f7;
 	border-radius: 50%;
@@ -77,11 +77,13 @@ add:
 	color: #555;
 	cursor: pointer;
 	display: inline-block;
+	font-family: monospace;
 	font-size: 1.5em;
 	font-weight: 600;
 	height: 22px;
 	line-height: 1em;
 	padding: 0 5px;
+	text-align: center;
 	width: 22px;
 	vertical-align: top;
 }
