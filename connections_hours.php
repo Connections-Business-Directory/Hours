@@ -9,17 +9,17 @@
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
  * @link      https://connections-pro.com
- * @copyright 2018 Steven A. Zahm
+ * @copyright 2020 Steven A. Zahm
  *
  * @wordpress-plugin
  * Plugin Name:       Connections Business Directory Extension - Open Hours
  * Plugin URI:        https://connections-pro.com/add-on/hours/
  * Description:       An extension for the Connections plugin which allows you to add the business hours of operation to an entry and a widget to display them.
- * Version:           1.1
+ * Version:           1.2
  * Author:            Steven A. Zahm
  * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       connections_hours
  * Domain Path:       /languages
  */
@@ -33,7 +33,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 	class Connections_Business_Hours {
 
-		const VERSION = '1.1';
+		const VERSION = '1.2';
 
 		/**
 		 * Stores the instance of this class.
