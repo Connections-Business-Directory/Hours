@@ -570,17 +570,22 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		}
 
 		/**
-		 * The output of the business hour data.
-		 *
-		 * Called by the cn_meta_output_field-cnbh action in cnOutput->getMetaBlock().
+		 * Callback for the `cn_output_meta_field-business_hours` action.
 		 *
 		 * @since 1.0
 		 *
-		 * @param string $id    The field id.
-		 * @param array  $value The business hours data.
-		 * @param array  $atts  The shortcode atts array passed from the calling action.
+		 * @see cnEntry_HTML::getContentBlock()
+		 *
+		 * Render the business open hours.
+		 *
+		 * @param string       $id    The field id.
+		 * @param array        $value The business hours data.
+		 * @param cnEntry_HTML $entry
+		 * @param array        $atts  The shortcode atts array passed from the calling action.
+		 *
+		 *@internal
 		 */
-		public static function block( $id, $value, $object = NULL, $atts ) {
+		public static function block( $id, $value, $entry, $atts ) {
 			global $wp_locale;
 
 			$defaults = array(
