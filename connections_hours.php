@@ -373,7 +373,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 			?>
 
-			<table name="start_of_week" id="start_of_week">
+			<table id="start_of_week">
 
 				<thead>
 					<tr>
