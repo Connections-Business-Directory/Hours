@@ -74,6 +74,12 @@ None yet....
 
 == Changelog ==
 
+= 1.2.1 05/03/2021 =
+* TWEAK: Remove use of `create_function()`.
+* TWEAK: Remove invalid `name` attribute from the hours of operation table.
+* DEV: Correct code alignment.
+* DEV: phpDoc correction.
+
 = 1.2 08/19/2020 =
 * TWEAK: Add a few additional styles for the add/remove period buttons to help prevent themes/plugins from breaking their display.
 * OTHER: Bump copyright year.
@@ -162,3 +168,7 @@ It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP
 
 = 1.0.6 =
 It is recommended to backup before updating. Requires WordPress >= 5.0 and PHP >= 5.6.20 PHP version >= 7.2 recommended.
+
+= 1.2.1 =
+It is recommended to backup before updating. Requires WordPress >= 5.1 and PHP >= 5.6.20 PHP version >= 7.2 recommended.
+
