@@ -9,13 +9,13 @@
  * @author    Steven A. Zahm
  * @license   GPL-2.0+
  * @link      https://connections-pro.com
- * @copyright 2020 Steven A. Zahm
+ * @copyright 2021 Steven A. Zahm
  *
  * @wordpress-plugin
  * Plugin Name:       Connections Business Directory Extension - Open Hours
  * Plugin URI:        https://connections-pro.com/add-on/hours/
  * Description:       An extension for the Connections plugin which allows you to add the business hours of operation to an entry and a widget to display them.
- * Version:           1.2
+ * Version:           1.2.1
  * Author:            Steven A. Zahm
  * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
@@ -33,7 +33,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 	class Connections_Business_Hours {
 
-		const VERSION = '1.2';
+		const VERSION = '1.2.1';
 
 		/**
 		 * Stores the instance of this class.
@@ -373,7 +373,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 			?>
 
-			<table name="start_of_week" id="start_of_week">
+			<table id="start_of_week">
 
 				<thead>
 					<tr>
@@ -570,17 +570,22 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 		}
 
 		/**
-		 * The output of the business hour data.
-		 *
-		 * Called by the cn_meta_output_field-cnbh action in cnOutput->getMetaBlock().
+		 * Callback for the `cn_output_meta_field-business_hours` action.
 		 *
 		 * @since 1.0
 		 *
-		 * @param string $id    The field id.
-		 * @param array  $value The business hours data.
-		 * @param array  $atts  The shortcode atts array passed from the calling action.
+		 * @see cnEntry_HTML::getContentBlock()
+		 *
+		 * Render the business open hours.
+		 *
+		 * @param string       $id    The field id.
+		 * @param array        $value The business hours data.
+		 * @param cnEntry_HTML $entry
+		 * @param array        $atts  The shortcode atts array passed from the calling action.
+		 *
+		 *@internal
 		 */
-		public static function block( $id, $value, $object = NULL, $atts ) {
+		public static function block( $id, $value, $entry, $atts ) {
 			global $wp_locale;
 
 			$defaults = array(
@@ -844,22 +849,22 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 	 */
 	function Connections_Business_Hours() {
 
-			if ( class_exists('connectionsLoad') ) {
+		if ( class_exists( 'connectionsLoad' ) ) {
 
-					return Connections_Business_Hours::instance();
+			return Connections_Business_Hours::instance();
 
-			} else {
+		} else {
 
-					add_action(
-							'admin_notices',
-							 create_function(
-									 '',
-									'echo \'<div id="message" class="error"><p><strong>ERROR:</strong> Connections must be installed and active in order use Connections Business Hours.</p></div>\';'
-									)
-					);
+			add_action(
+				'admin_notices',
+				function() {
 
-					return FALSE;
-			}
+					echo '<div id="message" class="error"><p><strong>ERROR:</strong> Connections must be installed and active in order use Connections Business Hours.</p></div>';
+				}
+			);
+
+			return false;
+		}
 	}
 
 	/**

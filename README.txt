@@ -2,10 +2,10 @@
 Contributors: shazahm1@hotmail.com
 Donate link: https://connections-pro.com/
 Tags: addresses, address book, addressbook, bio, bios, biographies, business, businesses, business directory, business-directory, business directory plugin, directory plugin, directory widget, church, contact, contacts, connect, connections, directory, directories, hcalendar, hcard, ical, icalendar, image, images, list, lists, listings, member directory, members directory, members directories, microformat, microformats, page, pages, people, profile, profiles, post, posts, plugin, shortcode, staff, user, users, vcard, wordpress business directory, wordpress directory, wordpress directory plugin, wordpress business directory, business hours, widget
-Requires at least: 5.0
-Tested up to: 5.5
+Requires at least: 5.1
+Tested up to: 5.7
 Requires PHP: 5.6.20
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,12 @@ None yet....
 [Screenshots can be found here.](https://connections-pro.com/add-on/hours/)
 
 == Changelog ==
+
+= 1.2.1 05/03/2021 =
+* TWEAK: Remove use of `create_function()`.
+* TWEAK: Remove invalid `name` attribute from the hours of operation table.
+* DEV: Correct code alignment.
+* DEV: phpDoc correction.
 
 = 1.2 08/19/2020 =
 * TWEAK: Add a few additional styles for the add/remove period buttons to help prevent themes/plugins from breaking their display.
@@ -162,3 +168,7 @@ It is recommended to backup before updating. Requires WordPress >= 4.5.3 and PHP
 
 = 1.0.6 =
 It is recommended to backup before updating. Requires WordPress >= 5.0 and PHP >= 5.6.20 PHP version >= 7.2 recommended.
+
+= 1.2.1 =
+It is recommended to backup before updating. Requires WordPress >= 5.1 and PHP >= 5.6.20 PHP version >= 7.2 recommended.
+
