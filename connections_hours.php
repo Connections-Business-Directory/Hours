@@ -15,7 +15,7 @@
  * Plugin Name:       Connections Business Directory Extension - Open Hours
  * Plugin URI:        https://connections-pro.com/add-on/hours/
  * Description:       An extension for the Connections plugin which allows you to add the business hours of operation to an entry and a widget to display them.
- * Version:           1.2
+ * Version:           1.2.1
  * Author:            Steven A. Zahm
  * Author URI:        https://connections-pro.com
  * License:           GPL-2.0+
@@ -33,7 +33,7 @@ if ( ! class_exists('Connections_Business_Hours') ) {
 
 	class Connections_Business_Hours {
 
-		const VERSION = '1.2';
+		const VERSION = '1.2.1';
 
 		/**
 		 * Stores the instance of this class.
